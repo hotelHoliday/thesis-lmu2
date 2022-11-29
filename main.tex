@@ -1,0 +1,101 @@
+\documentclass{book}
+
+\input{0_setup/0_packages}
+\input{0_setup/1_acro}
+\input{0_setup/2_customCmd}
+
+\makeglossaries
+
+\usepackage[backend=biber,style=ieee,sorting=none]{biblatex}
+\addbibresource{bibliography.bib}
+
+\graphicspath{ {2_images/} }
+
+% title page information
+\title  {\begin{center}
+            \includegraphics[scale = 0.2]{murdochLogo} 
+            \vspace{10mm}
+            \\{\Huge The Lolly Machine Upgrade 2.0}
+            \vspace{10mm}
+            \\{\Huge Thesis}
+            \vspace{5mm}
+            \\{\Large ENG470 - Engineering Honours Thesis}
+            \vspace{40mm} 
+            \\ Supervisor: Dr Graeme Cole
+        \end{center}}
+\author{Henry Davies}
+\date{December 2022}
+
+\begin{document}
+
+% use roman numerals for page reference
+\frontmatter
+
+% title page
+\maketitle
+\newpage
+
+% abstract
+\chapter*{Abstract}
+\input{1_chapters/1.0A_abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+%acknowledgements
+\chapter*{Acknowledgments}
+\input{1_chapters/1.0B_acknowledgements}
+\addcontentsline{toc}{chapter}{Acknowledgments}
+
+
+% table of contents page
+\tableofcontents
+\addcontentsline{toc}{chapter}{Table of Contents}
+\newpage
+
+% list of figures page
+\listoffigures
+\addcontentsline{toc}{chapter}{List of Figures}
+\newpage
+
+% acronyms page
+\printglossary[type=\acronymtype]
+\newpage
+
+% use numbers for page reference
+\mainmatter
+%remove fancy headers and book style page numbers from this point on
+\pagestyle{plain}
+
+\chapter{Introduction}
+    \label{chap:intro}
+    \input{1_chapters/1.1_intro}
+    \newpage
+
+\chapter{Background}
+    \label{chap:background}
+    \input{1_chapters/1.2_background}
+    \newpage
+
+\chapter{System Architecture}
+    \label{chap:sysArch}
+    \input{1_chapters/1.3_sysArch}
+    \newpage
+    
+\chapter{Machine Program Development}
+    \label{chap:plc}
+    \input{1_chapters/1.4_plc}
+    \newpage  
+    
+\chapter{HMI Development}
+    \label{chap:hmi}
+    \input{1_chapters/1.5_hmi}
+    \newpage
+    
+\chapter{Summary \& Future Recommendations}
+    \label{chap:summary}
+    \input{1_chapters/1.6_summary}
+    \newpage
+    
+\addcontentsline{toc}{section}{References}
+\printbibliography
+
+\end{document}

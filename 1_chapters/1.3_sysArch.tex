@@ -1,0 +1,153 @@
+\section{Overview}
+    The system architecture of a control system is a model that defines the relationships between all  components required to complete the system \remCite. System architecture models are typically illustrated by block diagrams with labeled lines between components - the labeled lines indicate the the relationship between each component. 
+
+    Various considerations were made during the design stage of the project to ensure the overall architecture was as “fit for purpose” as possible. These overarching considerations concerned hardware selection and network type.
+
+    \subsection{Budget}
+        Budget was one of the main factors in designing the overall structure of the system. Having a limiting amount of spending's meant that relatively low grade hardware was selected. This said, the hardware selected was sufficient enough for it’s intended purpose.
+
+    \subsection{Simplicity}
+        One of the main considerations was to make the system architecture as un-complicated as possible. When system architecture is unnecessary complicated it means that it is more difficult to setup, understand and troubleshoot - all of which are never desirable. However, when multiple networks, gateways, firewalls, etc, are required, there is no escaping a somewhat complex structure. Fortunately, the nature of this project has allowed for a relatively simple architecture with a relatively minimal amount of technologies in play.
+    
+    \subsection{Robustness}
+        System robustness is always a requirement when designing the architecture of a control system. This consideration is directly related to reliability - which is important as you don’t want a system that is prone to failure - especially when you are mixing kids and candy!!! For this project, system robustness was implemented mainly through logic within the \acrshort{plc} - this will be discussed in more detail later within the report. 
+    
+    \subsection{Standardisation}
+        Standardisation is tied in with simplicity - it's a good thing to keep things as standard as possible as this means that the system is easier to setup, program and troubleshoot. Standardisation is seen in the main communication protocol and network structure. Due to budget constraints,  there are various brands of hardware that has been used for this project. Ideally they would have been all of the same make. Another place that standardisation has been implemented within the project is the “way” that the code has been written. MAYBE REWRITE ALL THIS - MAYBEBEYBEYBE
+    
+    
+        
+    \section {Hardware Selection}
+        As previously mentioned, the main constraint concerning hardware selection was budget. Ideally, the project would have been designed with hardware, all from the same manufacturer, making integration between devices a more stream-lined task. In the case of the \acrshort{lmu} this is not at all the case. A selection of hardware from various manufactures has been selected and installed for this project. Ensuring hardware compatibility from a communications perspective was a critical part of the selection process. Modbus TCP/IP was selected as the communication protocol for the following few reasons:
+        \begin{enumerate}
+            \item It's an open source protocol that's common among hardware from different manufactures.
+            \item Used extensively in industry.
+            \item It's relatively easy to use.
+        \end{enumerate}
+    
+        
+    
+    \subsection{Click PLC}
+        A Click \acrshort{plc} from Direct Automation was selected as the main processor for the \acrshort{lmu}. The reasons that the Click \acrshort{plc} was selected are: it's already used on campus, electrical technicians are already fammilair with it and it supports Modbus TCP/IP. The \acrshort{plc} has a limited amount of onboard \acrshort{io}. Onboard \acrshort{io} has been used for is used for functions that have been deemed critical. These include an \acrshort{estop} button and three \acrshort{led}s that provide indication of the machine status and health.
+    
+        Another factor that hindered the selection of hardware was the long lead time of items. In an ideal world, \acrshort{io} modules that connect directly to the \acrshort{plc} would have been purchased. This would have removed the necessity of using remote \acrshort{io} - which is just another thing that could potentially go wrong… The supplier was called and lead times of required items where well passed the due date this thesis - for this reason other options needed to be considered.
+    
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width = 0.5\textwidth]{2_images/clickPlc}
+            \caption{The Click \acrshort{plc} that has been used for the \acrshort{lmu}\cite{clickPlcData}.}
+            \label{fig:plc}
+        \end{figure} 
+    
+    \subsection{Remote I/O}
+        Remote \acrshort{io} modules are responsible for controlling and monitoring the vast majority of \acrshort{io} onboard the lolly machine.
+        Three ADAM Modules from Advantech were selected as the remote \acrshort{io} modules for the \acrshort{lmu}. The selection criteria for remote \acrshort{io} being much the same as that of the \acrshort{plc}: already used on campus, familiarisation among staff and Modbus TCP/IP compatibility. Other criteria for the distribution of \acrshort{io}  considered the type of \acrfull{io} devices onboard the lolly machine. Two types of remote \acrshort{io} modules have been selected for the \acrshort{lmu}, these are as follows:
+        \begin{enumerate}
+            \item \textbf{ADAM 6251} 16 Channel Digital Input Module
+            \item \textbf{ADAM 6250} 8 Channel Digital Input/ 7 Channel Digital Output Module
+        \end{enumerate}
+    
+        \begin{figure}[H]
+        \centering
+        \begin{minipage}{0.4\textwidth}
+            \centering
+            \includegraphics[width = 0.65\textwidth]{2_images/adam6250.png}
+            \caption{6250 ADAM Module~\cite{6250Data}}
+            \label{fig:adam6250}
+        \end{minipage}\hfill
+        \begin{minipage}{0.4\textwidth}
+            \centering
+            \includegraphics[width = 0.65\textwidth]{2_images/adam6251.png}
+            \caption{6251 ADAM Module~\cite{6251Data}}
+            \label{fig:adam6251}
+        \end{minipage}\hfill            
+        \end{figure}   
+    
+        More information about the ADAM modules can be found on the following web page links.
+        
+        \href{https://www.advantech.com/en-au/products/7447e150-338d-402d-b5a1-c9ce6d98816e/adam-6250/mod_da940b26-501f-413e-bfbc-732fd7496782}{ADAM-6250 "LINK"} \cite{6250Data} 
+    
+        \href{https://www.advantech.com/en-au/products/7447e150-338d-402d-b5a1-c9ce6d98816e/adam-6251/mod_98139b28-a181-4c45-83c9-01db52c3db7f}{ADAM-6251 "LINK"} \cite{6251Data} 
+        
+        
+        \HD{reference the io sheet in the appendix}
+    \subsection{Siemens HMI}
+        A Siemens KTP-600 Touch Panel is the main \acrshort{hmi} and has been permanently installed on the front of the lolly machine. The Siemens \acrshort{hmi} has been selected because it was already on campus and has the capability to communicate over Modbus TCP/IP. Specifics to how the \acrshort{hmi} functions is discussed in detail in Chapter \ref{chap:hmi}.
+    
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width = 0.3\textwidth]{2_images/ktp600}
+            \caption{The Siemens \acrshort{hmi} that has been used for the \acrshort{lmu}\cite{ktp600Data}.}
+            \label{fig:hmi}
+        \end{figure}
+    
+        More information about the Siemens \acrshort{hmi} can be found on the following web page link.
+    
+        \href{https://support.industry.siemens.com/cs/document/31032678/simatic-hmi-hmi-devices-basic-panels?dti=0&lc=en-WW}{KTP-600 Siemens HMI} \cite{ktp600Data} 
+        
+    
+    \subsection{Raspberry Pi}
+    A Raspberry-Pi microcontroller/ embedded PC has been setup as a wireless gateway for the lolly machine control system. The main function of the Pi is to host a program called NODE-RED which is an open sourced flow-based programming environment. For this project, Node-RED is used to interface a web based dashboard with the \acrshort{plc}. More information detailing the structure of the Node-Red flows is later discussed in Chapter /ref{chap:hmi}.
+    
+    - INSERT PICTURE OF RASPBERRY PI	
+    
+    
+    \subsection{Arduino}
+    An Arduino is used to control the \acrshort{rgb} light strip that surrounds the the front of the Lolly machine. This too is discussed later in the report in Chapter \ref{chap:hmi}. The Arduino has been setup with an RS-485 shield to allow instructions to be received form the \acrshort{plc}.
+    
+    \section{Physical/ Network Layer}
+    
+    \subsection{Overview}
+    This section will discuss the type of networks that has been implemented on the \acrshort{lmu}. Various networks have been utilised trough the \acrshort{lmu} with Ethernet being the one used most extensively.
+    
+    \subsection{Ethernet} 
+    The main backbone of all communications relies on an Ethernet network on the subnet: 192.168.1.[2-224] with a subnet mask of 255.255.255.0. Ethernet was selected as it an incredibly common communication medium that is used extensively throughout industry and on campus. Physically, all devices are connected via an unmanaged network switch which is installed within the back of the Lolly Machine alongside the rest of the control gear. Pink Ethernet cables have been used to connect each device to one another for no other reason beyond pink being an awesome colour.
+    
+    \acrshort{ip} addresses are shown in the table below.
+    - INSERT TABLE SHOWING ETHERNET ADDRESSES	
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width = 0.5\textwidth]{2_images/ethernetLollyMachine.png}
+            \caption{The lolly machine Ethernet network.}
+            \label{fig:ethernetLollyMachine}
+        \end{figure}
+    
+    \subsection{WiFi}
+    A WiFi network from the Raspberry Pi allows a remote connection from any device that is equipped with WiFi and a web browser. 
+    
+    \subsection{RS232}
+    Unfortunately, the Click \acrshort{plc} does not come with a default \acrshort{ip} address. RS-232 is used to set the \acrshort{ip} address. Once the address is set, all other communication is archived via Ethernet as it is a superior in relation to RS-232.
+    
+    \subsection{RS485}
+    RS-485 provides a communication interface between the \acrshort{plc} and the Arduino. RS-485 is not an essential network within the project as it is only responsible for changing the colours of the \acrshort{rgb} lights on the front side of the Lolly Machine.
+    
+    \subsection{SPI}
+    The \acrshort{rgb} \acrshort{led}s controlled via the Arduino, are done so via the SPI serial communication protocol. A library has been written to control the \acrshort{rgb} \acrshort{led}s. The below link provides the source code located in a GitHub repository.
+    
+        \href{https://github.com/FastLED/FastLED}{FastLED source code "LINK"} \cite{FastLED} 
+        
+    
+    
+    
+    \section{Software/ Application Layer}
+        How does the hierarchy of control work and why?
+    
+        What is a server? What is a client?
+    
+        So, not too sure how to structure this section.
+    
+        The main requirement of the lolly machine, from a control perspective, was to design a system that was robust, simplistic while using a range of different interfacing technologies. Not really, I just did because thats what i could find. 
+    
+        The control system for the lolly machine is made up of three main components, these are: the \acrshort{hmi}s, \acrshort{plc} and remote \acrshort{io} modules. The general heirachy of control is that the \acrshort{hmi}s serve as clients to the \acrshort{plc} server while the \acrshort{plc} ascots as a client to the remote \acrshort{io} Modbus TCP/IP servers. In other words, the \acrshort{hmi}s instruct the \acrshort{plc} and the \acrshort{plc} instructs the remote \acrshort{io} modules. Modbus TCP/IP is the main communication protocol used onboard the lolly machine. 
+    
+        PASTE IN A PICTURE OF THE NETWORK ARCHITECTURE AND JUST COMMENT ON IT FROM A FUNCTIONAL PERSPECTIVE.
+    
+        SUMMARY AND FUTURE RECCOMENDATIONS
+        INSTALL BUTTONS TO FRONT OF PANEL TO ALLOW FOR EASY USE FOR KIDS.
+        EXTRA FUNCTIONALITY COULD BE ADDED TO EITHER THE RASPBERRY PI OR THE ARDUINO.
+        REPLACE WIRES THAT LINK THE AUTO SWITCH TERMINALS TO THE REMOTE IO SO THAT THEY ARE NOT THE SAME COLOUR AS THE 24 DC GND.
+    
+    
+    
+    
