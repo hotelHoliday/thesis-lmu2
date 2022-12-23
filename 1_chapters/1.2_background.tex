@@ -183,7 +183,19 @@ The lolly machine is comprised of many different components from pneumatic actua
 
 The lolly machine is, in essence, an automatic machine. This section investigates various components that facilitate the automation aspects of the project.
 
-\section{PLC}
+\section{State Machine Design}
+    State machine design, sometimes refereed to as sequential machine design, is a systematic method of programming which is commonly used to structure and machine code. Different variations of state machine design exist within industry and sometimes they can be difficult to identify, making the code look unnecessarily complicated and confusing to read. State machine design is comprised of different states with transitions between states. Actions within each state define how the machine will behave in said state while transitions between states are the conditions than need to exist to allow the machine to transition from one state to another. Figure \ref{fig:stateMachineEx} shows the general concept of state machine design. State machine design can be written in arguably any language. Some languages, like GRAPH by Siemens, are based on the concept of state machine design as evident by the look and feel of the language. 
+
+    \HD{If you get time - find a reference that backs up what you have said here about state machine design}
+
+        \begin{figure}[H]
+        \centering
+        \includegraphics[width = 0.5\textwidth]{2_images/stateMachineEx}
+        \caption{The general concept behind state machine design.}
+        \label{fig:stateMachineEx}
+    \end{figure}
+
+\section{Programmable Logic Controller (PLC)}
 
 
     A \acrfull{plc} is an industrial controller/ computer that can be programmed to perform specific \acrshort{rt} tasks and can utilised for varying applications\cite{petruzella2017programmable}. A \acrshort{plc} performs these tasks through solving logic based operations\cite{petruzella2017programmable}.  E.g., if a water tank is filled to a level which is deemed "to high" turn off the water supply to the tank. A \acrshort{plc} interacts with the outside world through the use of either onboard or remote \acrshort{io}.
@@ -218,8 +230,8 @@ The lolly machine is, in essence, an automatic machine. This section investigate
         \label{fig:localRemoteIo}
     \end{figure}
  
-\section{HMI}
-    A \acrfull{hmi}, as the name suggests, is the interface between the machine and the operator. A \acrshort{hmi} is a screen that shows the machine state through graphics. An operator enters commands through the touch screen or a keyboard and mouse. \acrshort{hmi}s are programmable and can be used to control and monitor almost any machine\cite{petruzella2017programmable}. Typically, there is one \acrshort{hmi} per machine/ operator. It is not uncommon to have multiple \acrshort{hmi}s within a single factory. Figure \ref{fig:typHmi} shows an example of what a \acrshort{hmi} screen for a basic motor controller might look like.
+\section{Human Machine Interface (HMI)}
+    A \acrfull{hmi}, as the name suggests, is the interface between the machine and the human/ operator. A \acrshort{hmi} is a screen that shows the machine state through graphics. An operator enters commands through the touch screen or a keyboard and mouse. \acrshort{hmi}s are programmable and can be used to control and monitor almost any machine\cite{petruzella2017programmable}. Typically, there is one \acrshort{hmi} per machine/ operator. It is not uncommon to have multiple \acrshort{hmi}s within a single factory. Figure \ref{fig:typHmi} shows an example of what a \acrshort{hmi} screen for a basic motor controller might look like.
 
     \begin{figure}[H]
         \centering
@@ -296,18 +308,31 @@ The lolly machine is, in essence, an automatic machine. This section investigate
 \section{Communication}
 
 \subsection{Serial}
-    Serial communication is a method of data transfer between devices where data is transmitted and received one "bit" at a time. Communication is typically facilitated through copper wires where data is represented by electrical signals. Serial communication standards define the specifics as to exactly how the data is transferred and interpreted. % There are a few different ways that serial communication protocols differentiate from one another then explain a few types.
+    Serial communication is a method of data transfer between devices where data is transmitted and received one "bit" at a time \cite{frenzel2015handbook}. Communication is typically facilitated through copper wires where data is represented by electrical signals. Serial communication standards define the specifics as to exactly how the data is transferred and interpreted. Below are some basic descriptions of a few common terms used within serial communication.
     
-    \subsubsection{Baud Rate:}The baud rate refers to the speed of data transfer. More specifically it refers to how many bits are able to be transmitted and received per second. 
+    \begin{description}
     
-    \subsubsection{Communication Mode:}There are three different types of communication modes: Simplex, Half Duplex and Full Duplex. For the sake of simplicity, the following explanations are in reference to a peer-to-peer system comprising of only two devices, lets call them Device-A and Device-B. Simplex means that communication is one way - Device-A is capable of transmitting data while device-B is capable of only receiving data.
+    \item[Baud Rate] The baud rate refers to the speed of data transfer. More specifically it refers to how many bits are able to be transmitted and received per second. 
     
-    \subsubsection{Asynchronous/ Synchronous:}Data transmission can be achieved through either synchronous or asynchronous m. synchronous transmission means that 
+    \item[Communication Mode] There are three different types of communication modes: Simplex, Half Duplex and Full Duplex. For the sake of simplicity, the following explanations are in reference to a peer-to-peer system comprising of only two devices, lets call them Device-A and Device-B. Simplex means that communication is one way - Device-A is capable of transmitting data while device-B is capable of only receiving data.
     
-    The lolly machine utilises three flavours of serial communication.
+    \item[Asynchronous/ Synchronous] Data transmission can be achieved through either synchronous or asynchronous methods of communication. \HD{Explain the differences and don't forget to reference.}
+    
+    \end{description}
+    
+    The lolly machine utilises three flavours of serial communication, these are as follows.
     
     \subsubsection{RS-232}
-    RS-232 is one method of communication supported by the \acrshort{plc}. During normal operation, the \acrshort{plc} communicates to all system peripherals through an Ethernet protocol. Unfortunately, the \acrshort{plc} factory settings do not include a static \acrshort{ip}\footnote{An \acrshort{ip} address is a unique address required for the type of communication network (router-less Ethernet) that that has been implemented on the lolly machine} address.  RS-232 has been used exclusivly for setting the \acrshort{ip} address of the \acrshort{plc}.
+    RS-232 has been around for a long time and is one of the older methods of serial communication. Although there are many superior methods of communication in this modern era, RS-232 is still common among industry. 
+    RS-232 is supported by the Click \acrshort{plc}. During normal operation, the \acrshort{plc} communicates to all system peripherals through an Ethernet protocol and does not require RS-232. Unfortunately, the \acrshort{plc} factory settings do not include a static \acrshort{ip}\footnote{An \acrshort{ip} address is a unique address required for the type of communication network (router-less Ethernet) that that has been implemented on the lolly machine} address.  RS-232 is used exclusively for setting the \acrshort{ip} address of the \acrshort{plc}. Figure \ref{fig:rs232Trans} shows a typical RS-232 data transmission. 
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width = 0.7\textwidth]{2_images/rs232Trans.png}
+        \caption{A RS-232 data transmission~\cite{frenzel2015handbook}.}
+        \label{fig:rs232Trans}
+    \end{figure} 
+    \newpage    
     
     \subsubsection{RS-485}
     The RS-485 serial protocol is used for communication between the Arduino and the \acrshort{plc}.
@@ -315,28 +340,8 @@ The lolly machine is, in essence, an automatic machine. This section investigate
     \subsubsection{SPI}
     The SPI protocol is used to link the Arduino to the \acrshort{rgb} \acrshort{led}s.
     
-    %% DELETE BUT USE THE REFERENCES
-    Communication between devices can be achieved through serial communication. The base premise of serial communication is that data is transmitted and received one bit at a time\cite{frenzel2015handbook}. Bits are transmitted through a copper cable where differing voltage levels are inferred as either a 0 or 1\cite{frenzel2015handbook}. To understand serial communications properly there are a few terms that should be understood.
-    \begin{description}
-        \item\textbf{Baud Rate:} The number of bits that are transmitted or received per 1 second.
-        \item\textbf{Telegram:} The complete set of data per transmission, comprising of 'n' number of bits which is dependent on the protocol.
-        \item\textbf{\acrshort{lsb}:} The least significant bit in telegram.
-        \item\textbf{\acrshort{msb}:} The most significant bit in telegram.
-        \item\textbf{Parity Bit:} An optional check bit which is typically located at the \acrshort{lsb}. Parity can be either odd or even. Even parity means that there are an even number of 1s in a string while odd parity is an odd number of 1s in a string.
-        \item\textbf{Start/ Stop-Bit:} A start bit defines the beginning of a telegram while a stop bit defines the end.
-        \item\textbf{Half/ Full-Duplex} Half duplex means that data can be sent or received at any one point in time - data cannot be send and received synchronously. Full Duplex means that data can be sent and received at the same time.
-    \end{description}
-    Varying standards define different methods of serial communication. The lolly machine has two different serial communications standards. 
-    
     % could also include spi and i2c but we will see. . . 
-   
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width = 0.7\textwidth]{2_images/rs232Trans.png}
-            \caption{A RS-232 data transmission~\cite{frenzel2015handbook}.}
-            \label{fig:rs232Trans}
-        \end{figure} 
-    \newpage    
+
  
      
 \subsection{Ethernet}
@@ -355,12 +360,15 @@ The lolly machine is, in essence, an automatic machine. This section investigate
     
     Each Ethernet device has a unique address which is called an \acrshort{ip} address. An \acrshort{ip} address is a four-octet, eight-bit address\cite{scott2021networking}.  
     
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width = 0.6\textwidth]{2_images/ethernetCables.png}
-            \caption{Ethernet cables plugged into a network switch\cite{scott2021networking}.}
-            \label{fig:ethenetCables}
-        \end{figure} 
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width = 0.6\textwidth]{2_images/ethernetCables.png}
+        \caption{Ethernet cables plugged into a network switch\cite{scott2021networking}.}
+        \label{fig:ethenetCables}
+    \end{figure} 
+
+    There are two main types of Ethernet devices - Client device and Server device. To best explain the relationship between Client and Server devices, the following analogy can be used. In a restaurant, the customer requests food from the waiter. The waiter listens to the customers request and proceeds to deliver the food back to the customer. If you haven't already guessed, the customer is the Client, the waiter is the Server and the food is data. This is similar to the a Master/ Slave relationship in serial networks where the Master is the Client and the Slave is the Server. It is not uncommon for devices to be both Clients and Servers, these types of devices are referred to as a Client-Server device.
+    
         
 \section{Communication Protocols}
 \subsection{Modbus}
@@ -371,47 +379,57 @@ The lolly machine is, in essence, an automatic machine. This section investigate
     In a Modbus network, data is communicated between devices in single bits or in WORDs (2 BYTES). 
     The Modbus protocol has four different address types, these are as follows:
     
-    \begin{description}
-        \item\textbf{Coil:} 1 bit - Read/ Write Access
-        \item\textbf{Discrete Input:} 1 bit - Read Only Access
-        \item\textbf{Input Register:} 16 bit WORD - Read Only Access
-        \item\textbf{Holding Register:} 16 bit WORD - Read/ Write Access
-    \end{description}
+        \begin{table}[H]
+        \caption{Modbus Address Types}
+        \begin{center}
+            \begin{tabular}{ |c|c|c| }
+                \hline
+                \textbf{Data Type} & \textbf{Size} & \textbf{Access}\\ 
+                \hline
+                Coil                & 1 Bit         & Read/ Write Access\\
+                Discrete Input      & 1 bit         & Read only Access\\
+                Input Register      & 16 bit (WORD) & Read only Access\\
+                Holding Register        & 16 bit (WORD) & Read/ Write Access\\
+                \hline
+            \end{tabular}\\
+        \end{center}
+        \label{table:modbusAddressTypes}
+    \end{table}
     
     When the Master/ Client device requests data from the Slave/ Server, it does so with a function code. The function code lets the Slave/ Server know how to respond to the request. The below list shows what each code corresponds to. 
-    
-    \begin{center}
-        \begin{tabular}{ c c }
-         \textbf{Code} & \textbf{Name}\\ 
-            01 & Read Coil Status\\
-            02 & Read Input Status\\
-            03 & Read Holding Registers\\
-            04 & Read Input Registers\\
-            05 & Force Single Coil\\
-            06 & Preset Single Register\\
-            07 & Read Exception Status\\
-            08 & Diagnostics\\
-            09 & Program 484\\
-            10 & Poll 484\\
-            11 & Fetch Comm. Event Ctr\\
-            12 & Fetch Comm. Event Log\\
-            13 & Program Controller\\
-            14 & Poll Controller\\
-            15 & Force Multiple Coils\\
-            16 & Preset Multiple Registers\\
-            17 & Report Slave ID\\
-            18 & Program 884/M84\\
-            19 & Reset Comm. Link\\
-            20 & Read General Reference\\
-            21 & Write General Reference\\
-        \end{tabular}\\
-    \end{center}
 
-The Modbus TCP/IP communication protocol is used extensively throughout various components of the lolly machine. Figure \ref{fig:overView} shows how the Modbus communication protocol facilitates the overall network architecture of the project.
+    \begin{table}[H]
+        \caption{Modbus Functions}
+        \begin{center}
+            \begin{tabular}{ |c|c| }
+                \hline
+                \textbf{Code} & \textbf{Name}\\ 
+                \hline
+                01 & Read Coil Status\\
+                02 & Read Input Status\\
+                03 & Read Holding Registers\\
+                04 & Read Input Registers\\
+                05 & Force Single Coil\\
+                06 & Preset Single Register\\
+                07 & Read Exception Status\\
+                08 & Diagnostics\\
+                09 & Program 484\\
+                10 & Poll 484\\
+                11 & Fetch Comm. Event Ctr\\
+                12 & Fetch Comm. Event Log\\
+                13 & Program Controller\\
+                14 & Poll Controller\\
+                15 & Force Multiple Coils\\
+                16 & Preset Multiple Registers\\
+                17 & Report Slave ID\\
+                18 & Program 884/M84\\
+                19 & Reset Comm. Link\\
+                20 & Read General Reference\\
+                21 & Write General Reference\\
+                \hline
+            \end{tabular}\\
+        \end{center}
+        \label{table:modbusFunctions}
+    \end{table}
 
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width = 0.5\textwidth]{2_images/overView.jpg}
-            \caption{Overview of the lolly machine network architecture.}
-            \label{fig:overView}
-        \end{figure}         
+The Modbus TCP/IP communication protocol is used extensively throughout various components of the lolly machine. Figure \ref{fig:networkArcitecture} shows how the Modbus communication protocol facilitates the overall network architecture of the project.

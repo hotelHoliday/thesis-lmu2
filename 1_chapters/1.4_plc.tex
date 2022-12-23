@@ -1,0 +1,86 @@
+Programming the \acrshort{plc} was one of the largest tasks undertaken during \acrshort{lmu} project. This task is multifaceted and includes design and implementation and therefore refereed to as ``Machine Program Development". This chapter discusses both the design and implementation of all work concerning how the \acrshort{plc} is programmed. 
+
+``CLICK Programming Software'' was used to program the \acrshort{plc}. The software is relatively basic in comparison to others that are currently available on the market. The simplistic nature of the software is great from a learning perspective as the limited functionality allows new \acrshort{plc} programmers to become quickly acquainted with the software. The limited functionality also has it's downsides, the main one for this project being an inability to build custom functions, custom functions are useful when programming repetitive logic and would have been particularly helpful while programming some alarming logic - this will be discussed in section \ref{sec:valveFtoFtc}. ``CLICK Programming Software'' is accessible for free through the following link - \href{https://www.automationdirect.com/clickplcs/free-software/free-click-software}{CLICK Software ``LINK''} \cite{clickSoftwareDownload}.
+
+\section{Machine Design and Implementation}
+    The overall structure of the \acrshort{plc} code has been written in a modular style where program functions are split into separate subroutines. Subroutine Programs are called from the Main Program as illustrated in Figure \ref{fig:plcMainAuto}. The Main Program is designed to be simple and easy to read. The only logic that exists within the Main Program is overall state machine which allows for the machine to be in one of three modes: Automatic, Manual or Alarm. \HD{Appendix for the PLC program.}
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width = 0.9\textwidth]{2_images/plcMainAuto}
+            \caption{Snippet of PLC code showing where sort and dispense Subroutine Programs are called from the Main Program}
+            \label{fig:plcMainAuto}
+        \end{figure}
+    The Main Program is also responsible for calling six other Subroutines Programs. This is achieved by connecting   ``\_Always\_ON'' \acrshort{no} contacts with each Subroutine Program.
+    
+    \subsection{Main Modes}
+    A simplified version of State Machine Design has been implemented for the the Structure the Main Program. A graphical representation of the program can be seen in Figure \ref{fig:mainStateMachine}. The machine will swap between Manual and Automatic Mode as a function of the internal \acrshort{plc} variable C3. When an an Alarm exists within the machine the system will go into `Alarm Mode' regardless of whether the machine is in Manual or Automatic. 
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width = 0.4\textwidth]{2_images/mainStateMachine}
+            \caption{State Machine Design for the Main Program.}
+            \label{fig:mainStateMachine}
+        \end{figure}
+    
+        \subsubsection{Automatic}
+            When C3 is off and the machine is not in an Alarm state, the machine will be in automatic mode. For the system to function in automatic mode, it must be enabled.  Once enabled, subroutine program `Dispense' is called. The `Sort' Subroutine is called when automatic mode is enabled and C4 is ON. The reason that these two subroutines are not called at the same time is to allow the machine to dispense while it is not sorting. 
+            When the machine is in automatic mode, the green \acrshort{led} status indicator will flash when it is ready and will go solid once enabled.
+
+        \subsubsection{Manual}
+            When C3 is on and the machine is not in an alarm state, the machine will be in manual mode. While in manual mode, control valves can be manipulated via the connected control source. The logic that drives the manual control is detailed in Section \ref{sec:output}.
+            When the machine is in manual mode, the amber \acrshort{led} status indicator will be on. 
+
+        \subsubsection{Alarm}
+            When an alarm is present, the machine will go into alarm mode. While in Alarm mode, the machine will be inoperable and outputs will go back to their default position. When the machine is in alarm mode, the red \acrshort{led} status indicator will be on.
+
+    \subsection{Dispensing}
+        Dispensing is a function of the lolly machine which is possible when the machine is enabled in automatic mode. While in this mode, the machine is constantly waiting for an input from the user to so that it knows which colour/s of lolly to dispense. Once the user has finished selecting the their desired colours, the user presses the get button and the machine will dispense the lollies. This is completed through general logic and can be found in appendix \HD{Appendix Number for the Ladder Logic Printout goes here}.
+        \HD{Could add more detail here...}
+    \subsection{Sort}
+        The sorting subroutine program is the most complex piece of code within the system and has been written exclusively in state machine design. Rather than explain how this part of the program works, an illustration of the design is shown in Figure which does a terrific job of showing all possible states and transitions. 
+    \subsection{Alarm Mode}
+
+\section{I/O Mapping}
+    For the \acrshort{plc} to be able to interact with the outside world, all \acrshort{io} needs to be mapped. \acrshort{io} mapping is the process of setting up the \acrshort{plc} so that read (inputs) and write (outputs) addresses can be easily accessed throughout the program. Some considerations made during this process are as follows:
+    
+    \begin{enumerate}
+        \item All read and write variables are within the \acrshort{plc} address range: \X to \X. 
+        \item \acrshort{no} contacts within the \acrshort{ll} elements will be used to map inputs with the exception of devices that have \acrshort{nc} contacts (proximity sensors).
+        \item \acrshort{ll} coil elements will be used to write to outputs. 
+        \item \acrshort{io} is to be called a maximum of one time, i.e, each input and output will exist only once in the program.
+    \end{enumerate}
+
+    All of the Lolly Machine \acrshort{io} are terminated into either,  ADAM remote \acrshort{io} modules or directly into the \acrshort{plc} \acrshort{io}, typically refereed to as onboard \acrshort{io}.
+
+    \subsection{Input} \label{sec:input}
+
+    \subsection{Output} \label{sec:output}
+
+    \subsection{Onboard I/O}
+        Onboard \acrshort{io} address are configurable in the \HD{What are the steps for configuring IO}
+        Using onboard \acrshort{io} is a great deal easier than remote \acrshort{io} because there are less steps involved - this will become evident in the section where the steps involved are discussed. 
+        
+        The reason that all \acrshort{io} is not exclusively "onboard", is due to long lead times of \acrshort{plc} expansion modules. We were lucky enough to get one digital output module which is responsible for the \acrshort{led} indicators on the front side of the Lolly Machine - three of which are a traffic light arrangement which show the Lolly Machine Status. A conscious decision was made to connect the status indicators directly to the \acrshort{plc} as in the event of a communications failure, there is the potential for the remote \acrshort{io} to fail whereas the onboard will not. 
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width = 0.3\textwidth]{2_images/smile.png}
+            \caption{The Click PLC and expansion digital output module.}
+            \label{fig:plcIO}
+            \HD{Picture of PLC with terminations}
+        \end{figure}
+        
+
+    
+    
+    \subsection{Modbus I/O}
+
+\section{Special Functions}
+
+    \subsection{Automatic Shoot Unblock}
+
+    \subsection{Automatic Control Source Recovery}
+
+    \subsection{Valve FTO/ FTC} \label{sec:valveFtoFtc}
+
+    

@@ -1,5 +1,5 @@
 \section{Overview}
-    The system architecture of a control system is a model that defines the relationships between all  components required to complete the system \remCite. System architecture models are typically illustrated by block diagrams with labeled lines between components - the labeled lines indicate the the relationship between each component. 
+    The system architecture of a control system is a model that defines the relationships between all  components required to complete the system \remCite . System architecture models are typically illustrated by block diagrams with labeled lines between components - the labeled lines indicate the the relationship between each component. 
 
     Various considerations were made during the design stage of the project to ensure the overall architecture was as “fit for purpose” as possible. These overarching considerations concerned hardware selection and network type.
 
@@ -13,22 +13,22 @@
         System robustness is always a requirement when designing the architecture of a control system. This consideration is directly related to reliability - which is important as you don’t want a system that is prone to failure - especially when you are mixing kids and candy!!! For this project, system robustness was implemented mainly through logic within the \acrshort{plc} - this will be discussed in more detail later within the report. 
     
     \subsection{Standardisation}
-        Standardisation is tied in with simplicity - it's a good thing to keep things as standard as possible as this means that the system is easier to setup, program and troubleshoot. Standardisation is seen in the main communication protocol and network structure. Due to budget constraints,  there are various brands of hardware that has been used for this project. Ideally they would have been all of the same make. Another place that standardisation has been implemented within the project is the “way” that the code has been written. MAYBE REWRITE ALL THIS - MAYBEBEYBEYBE
+        Standardisation is tied in with simplicity - it's a good thing to keep things as standard as possible as this means that the system is easier to setup, program and troubleshoot. Standardisation is noticeable within the communication structure of the lolly machine as Modbus TCP/IP is used almost exclusively. Another area that could have been standardised for this project is hardware selection. Due to budget constraints,  there are various brands of hardware that have been used for this project. Ideally they would have been all of the same make. Another place that standardisation has been implemented within the project is the “way” that the code has been written - this will be discussed in more deatil later within the document.
     
     
         
     \section {Hardware Selection}
-        As previously mentioned, the main constraint concerning hardware selection was budget. Ideally, the project would have been designed with hardware, all from the same manufacturer, making integration between devices a more stream-lined task. In the case of the \acrshort{lmu} this is not at all the case. A selection of hardware from various manufactures has been selected and installed for this project. Ensuring hardware compatibility from a communications perspective was a critical part of the selection process. Modbus TCP/IP was selected as the communication protocol for the following few reasons:
-        \begin{enumerate}
+        As previously mentioned, the main constraint concerning hardware selection was budget. Ideally, the project would have been designed with hardware, all from the same manufacturer, making integration between devices a more stream-lined task. In the case of the \acrshort{lmu} this is not at all the case. A selection of hardware from various manufactures has been selected and installed for this project. Ensuring hardware compatibility from a communications perspective was a critical part of the selection criteria. Modbus TCP/IP was selected as the communication protocol for the following few reasons:
+        \begin{itemize}[noitemsep]
             \item It's an open source protocol that's common among hardware from different manufactures.
             \item Used extensively in industry.
             \item It's relatively easy to use.
-        \end{enumerate}
+        \end{itemize}
     
         
     
     \subsection{Click PLC}
-        A Click \acrshort{plc} from Direct Automation was selected as the main processor for the \acrshort{lmu}. The reasons that the Click \acrshort{plc} was selected are: it's already used on campus, electrical technicians are already fammilair with it and it supports Modbus TCP/IP. The \acrshort{plc} has a limited amount of onboard \acrshort{io}. Onboard \acrshort{io} has been used for is used for functions that have been deemed critical. These include an \acrshort{estop} button and three \acrshort{led}s that provide indication of the machine status and health.
+        A Click \acrshort{plc} from Direct Automation was selected as the main processor for the \acrshort{lmu}. The reasons that the Click \acrshort{plc} was selected are: it's already used on campus, electrical technicians are already familiar with it and it supports Modbus TCP/IP. The \acrshort{plc} has a limited amount of onboard \acrshort{io}. Onboard \acrshort{io} has been used for is used for functions that have been deemed critical. These include an \acrshort{estop} button and three \acrshort{led}s that provide indication of the machine status and health.
     
         Another factor that hindered the selection of hardware was the long lead time of items. In an ideal world, \acrshort{io} modules that connect directly to the \acrshort{plc} would have been purchased. This would have removed the necessity of using remote \acrshort{io} - which is just another thing that could potentially go wrong… The supplier was called and lead times of required items where well passed the due date this thesis - for this reason other options needed to be considered.
     
@@ -89,7 +89,7 @@
     \subsection{Raspberry Pi}
     A Raspberry-Pi microcontroller/ embedded PC has been setup as a wireless gateway for the lolly machine control system. The main function of the Pi is to host a program called NODE-RED which is an open sourced flow-based programming environment. For this project, Node-RED is used to interface a web based dashboard with the \acrshort{plc}. More information detailing the structure of the Node-Red flows is later discussed in Chapter /ref{chap:hmi}.
     
-    - INSERT PICTURE OF RASPBERRY PI	
+    \HD{Insert photograph of Raspberry-Pi installed on the machine}	
     
     
     \subsection{Arduino}
@@ -103,8 +103,7 @@
     \subsection{Ethernet} 
     The main backbone of all communications relies on an Ethernet network on the subnet: 192.168.1.[2-224] with a subnet mask of 255.255.255.0. Ethernet was selected as it an incredibly common communication medium that is used extensively throughout industry and on campus. Physically, all devices are connected via an unmanaged network switch which is installed within the back of the Lolly Machine alongside the rest of the control gear. Pink Ethernet cables have been used to connect each device to one another for no other reason beyond pink being an awesome colour.
     
-    \acrshort{ip} addresses are shown in the table below.
-    - INSERT TABLE SHOWING ETHERNET ADDRESSES	
+    \acrshort{ip} addresses are shown in the table below.	
 
         \begin{figure}[H]
             \centering
@@ -127,26 +126,65 @@
     
         \href{https://github.com/FastLED/FastLED}{FastLED source code "LINK"} \cite{FastLED} 
         
-    
-    
-    
     \section{Software/ Application Layer}
-        How does the hierarchy of control work and why?
+
+    This section will discuss the hierarchy of control in regard to device to device communication. 
+    The lolly machine is comprised of eight different network devices as detailed in Table \ref{table:networkDevices}
+
+    \begin{table}[H]
+        \caption{Network Devices}
+        \begin{center}
+            \begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+                \hline
+                \textbf{Name} & \textbf{Manufacturer} & \textbf{Model} & \textbf{Type} & \textbf{Address}  & \textbf{Password}\\
+                \hline
+                DAQ-01 & Advantech & ADAM-6251 & Server & 192.168.0.20 & 00000000\\
+                DAQ-02 & Advantech & ADAM-6250 & Server & 192.168.0.21 & 00000000\\
+                DAQ-03 & Advantech & ADAM-6250 & Server & 192.168.0.22 & 00000000\\
+                EWS-01 & NA & NA & Client & 192.168.0.113 & \\
+                HMI-01 & Siemens & KTP-600 & Client & 192.168.0.15 & \\
+                MIC-01 & CLICK & C0-12DRE-2-D & Client-Server & 192.168.0.120 & raspberry\\
+                MIC-02 & Arduino & UNO & NA & NA & \\
+                PLC-01 & CLICK & C0-12DRE-2-D & Client-Server & 192.168.0.10 & click\\
+
+                \hline
+            \end{tabular}\\
+        \end{center}
+        \label{table:networkDevices}
+    \end{table}
     
-        What is a server? What is a client?
-    
-        So, not too sure how to structure this section.
-    
-        The main requirement of the lolly machine, from a control perspective, was to design a system that was robust, simplistic while using a range of different interfacing technologies. Not really, I just did because thats what i could find. 
-    
-        The control system for the lolly machine is made up of three main components, these are: the \acrshort{hmi}s, \acrshort{plc} and remote \acrshort{io} modules. The general heirachy of control is that the \acrshort{hmi}s serve as clients to the \acrshort{plc} server while the \acrshort{plc} ascots as a client to the remote \acrshort{io} Modbus TCP/IP servers. In other words, the \acrshort{hmi}s instruct the \acrshort{plc} and the \acrshort{plc} instructs the remote \acrshort{io} modules. Modbus TCP/IP is the main communication protocol used onboard the lolly machine. 
-    
-        PASTE IN A PICTURE OF THE NETWORK ARCHITECTURE AND JUST COMMENT ON IT FROM A FUNCTIONAL PERSPECTIVE.
-    
-        SUMMARY AND FUTURE RECCOMENDATIONS
-        INSTALL BUTTONS TO FRONT OF PANEL TO ALLOW FOR EASY USE FOR KIDS.
-        EXTRA FUNCTIONALITY COULD BE ADDED TO EITHER THE RASPBERRY PI OR THE ARDUINO.
-        REPLACE WIRES THAT LINK THE AUTO SWITCH TERMINALS TO THE REMOTE IO SO THAT THEY ARE NOT THE SAME COLOUR AS THE 24 DC GND.
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width = 0.9\textwidth]{2_images/networkArcitecture.jpg}
+            \caption{Overview of the lolly machine communication structure.}
+            \label{fig:networkArcitecture}
+        \end{figure}     
+        
+
+
+        The hierarchy of control, in regard to device-device communication, on the Lolly machine has been structured in a way that aims to facilitate a pragmatic, intuitive and robust method of communication between devices. The structure can be illustrated in a three tiered model where each tier is associated with a different communication function. All communication is achieved through Modbus TCP/IP over Ethernet with two exceptions which will be discussed later in Section \HD{ Figure out what section this is gonna be talked in!}
+
+        In a nutshell, the communication structure is pretty basic. Using terminology of a basic working relationship between a manager,  engineer and graduate,  the following can be applied to the communication structure of the Lolly Machine. A \acrshort{hmi} Client device (Tier 1) is the manager and tells the \acrshort{plc} Client-Server device (the engineer) what to do. The Engineer is responsible for doing some of her own work but is also in charge passing on certain tasks to the graduate. In the case of the Lolly Machine, it’s the same. The \acrshort{plc} is responsible for it’s own work but also passes some tasks down to the remote \acrshort{io} (graduate) in Tier 3. The remote \acrshort{io} is incapable of instructing the \acrshort{plc} what to do. 
+
+        \subsection{Tier 1 - Client Devices}
+
+        Tier 1 contains the Client devices. The main function of the client devices is to give instructions to the Server part of the \acrshort{plc}. The two main types of instructions to the \acrshort{plc} Server can be either read or write. A read instruction from a Client to a Server is a request for information. For example, an indicator on the Siemens \acrshort{hmi} that shows the status of a digital input, is “read” request from the \acrshort{hmi} to the \acrshort{plc}. When a Client writes to a server, in the case of the lolly machine, it is altering a value of an internal variable within the \acrshort{plc}. For example, In manual mode a request to turn on and off a digital output can be triggered by the \acrshort{hmi}.
+
+        There are three different devices that act as Clients to the \acrshort{plc}. These are the: Siemens \acrshort{hmi}, Raspberry Pi (Node-RED) and the \acrshort{ews}(LabVIEW). The intention is that the Siemens \acrshort{hmi} will serve as the main control point, the \acrshort{ews} as a troubleshooting tool and the Raspberry Pi added as more of a novelty. The logic within the \acrshort{plc} responsible for mapping instructions from each of the Client devices will be discussed in Chapter \HD{What is the label for PLC chapter?}
+
+        One other device that should get an honorary mention in this section is the optional device of a  phone/ tablet connected the Raspberry Pi \acrshort{wap}. In a matter of fact, the Raspberry Pi is actually a Client-Server device as it receives instruction from the connected phone/ tablet then proceeds to pass these commands onto the \acrshort{plc}. The reason that both devices have been left in tier 1 is because the Raspberry Pi doesn’t perform any logic. For the remainder of this document, the combination of both the devices will be referred to as the “Raspberry Pi”.
+
+        \subsection{Tier 2 - Client-Server Devices}
+
+        The only device in tier 2 is the \acrshort{plc}. The \acrshort{plc} is the central processor of the control system and is capable of receiving instructions from each of the \acrshort{hmi} Client devices and transmitting instructions to each remote \acrshort{io} Server devices. 
+
+        \subsection{Tier 3 - Server Devices}
+
+        Tier 3 contains Server devices. Server devices are only capable of receiving instruction from Client type devices (this includes Client-Server). All three remote \acrshort{io}s reside in tier 3. Although it is possible to control the Server devices in Tier 3 directly from tier 1 devices, this has not been done on this project. All communication is facilitated through the \acrshort{plc} in tier 2.
+
+
+
+
     
     
     

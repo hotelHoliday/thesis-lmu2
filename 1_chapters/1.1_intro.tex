@@ -1,10 +1,8 @@
-The lolly machine was originally constructed in 199\X by \X. When the machine arrived on the campus of Murdoch University, it was noted that a fundamental design criteria was completely overlooked - the machine was ordered without a control system. Fortunately Dr Graeme Cole was on the scene was able to quickly assemble and program a microprocessor based embedded system that would remain the backbone bone of the control system for decades to come. 
+The lolly machine was originally constructed in the late 90's by an external company \cite{computerControlGCole}. When the machine arrived on the campus of Murdoch University, it was noted that a fundamental design criteria was completely overlooked - the machine was ordered without a control system. Fortunately Dr Graeme Cole was on the scene was able to quickly assemble and program a microprocessor based embedded system that would remain the backbone bone of the control system for decades to come. 
 
 The lolly machine is a demonstration unit for Murdoch University Engineering that sorts and dispenses Lollies as according to their colour. The intended purpose of the lolly machine is to spark the interest of future engineering students during open days and to showcase the capabilities of Murdoch Engineering \acrlong{icse} students.
 
 The lolly machine has been out of service for some time and is in desperate need of maintenance and an upgrade. As this is the second thesis aimed at upgrading the machine, the project has been affectionately named, \textbf{\acrfull{lmu}}.
-
-\GC{could include a bit about the thesis being project oriented rather than research?}
 
 \section{Objectives}
    This thesis project (\acrfull{lmu}) is a requirement for the Bachelor of Engineering Honours degree at Murdoch University and is worth a total of 12 credit points. ENG470 is the unit name.
@@ -16,10 +14,13 @@ The lolly machine has been out of service for some time and is in desperate need
         One of the main objectives of the \acrshort{lmu} is to upgrade the control system to something that is more inline with today's industrial technologies. The main intent being that future students will be able to  "play" around with the machine using technologies that are relevant with industry standards. To upgrade the control system the system architecture must be redesigned to allow the implementation of new hardware, software and communication protocols. Objective 1 is detailed in Chapter \ref{chap:sysArch}
         
     \subsection{Objective 2: Develop Machine Program}
-        The installation of new hardware has meant that a new program would need to be written. Objective 1 captures all things concerning the program development. This is pretty much all work completed on the \acrshort{plc}.
-        - state machine design
-        - building in interfacing logic for multiple user interfaces
-        - special functions including auto \acrshort{hmi} connect, auto lolly de-blocker \acrshort{rgb} \acrshort{led} lolly colour indicator .
+        With the installation of new control system hardware comes the task of developing new code to suit.
+        Objective 1 captures all aspects of program development in regards to the \acrshort{plc}, such items include.
+        \begin{itemize}
+            \item \acrshort{io} mapping
+            \item Program design using various techniques
+            \item Develop "special" functions
+        \end{itemize}
 
         
         
@@ -38,12 +39,11 @@ The lolly machine has been out of service for some time and is in desperate need
             \item   \acrshort{plc} program
             \item   \acrshort{hmi} program
             \item   LabVIEW program
-            \item   NODE-RED program
+            \item   Node-RED program
         \end{enumerate}
         
         User documentation is attached within the appendix of this document
 
-\section{Project Outline}
 
     % REPLACE WITH NEW PHOTO OF NEW INSTALL
     \begin{figure}[ht]
