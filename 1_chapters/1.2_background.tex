@@ -168,7 +168,7 @@ The lolly machine is comprised of many different components from pneumatic actua
             \caption{Solenoid pneumatic control valves mounted on manifold.}
             \label{fig:controlValvesPic}
         \end{figure} 
-    \newpage
+    
     \subsubsection{\acrshort{led} Indicators}
         A number of \acrshort{led} based lights are used on the lolly machine. The \acrshort{led}s are linked to specific machine states and will either be on, off  or flashing. \acrshort{led}s are robust, lasting much longer than previously used incandescent lights. As most \acrshort{led}s require only a couple of volts, all have internal series resistors which allows all \acrshort{led}s on the lolly machine to be directly controlled and switched by the \acrshort{plc}.
         
@@ -184,7 +184,7 @@ The lolly machine is comprised of many different components from pneumatic actua
 The lolly machine is, in essence, an automatic machine. This section investigates various components that facilitate the automation aspects of the project.
 
 \section{State Machine Design}
-    State machine design, sometimes refereed to as sequential machine design, is a systematic method of programming which is commonly used to structure and machine code. Different variations of state machine design exist within industry and sometimes they can be difficult to identify, making the code look unnecessarily complicated and confusing to read. State machine design is comprised of different states with transitions between states. Actions within each state define how the machine will behave in said state while transitions between states are the conditions than need to exist to allow the machine to transition from one state to another. Figure \ref{fig:stateMachineEx} shows the general concept of state machine design. State machine design can be written in arguably any language. Some languages, like GRAPH by Siemens, are based on the concept of state machine design as evident by the look and feel of the language. 
+    State machine design, sometimes refereed to as sequential machine design, is a systematic method of programming which is commonly used to structure and machine code. Different variations of state machine design exist within industry and sometimes they can be difficult to identify, making the code look unnecessarily complicated and confusing to read. State machine design is comprised of different states with transitions between states. Actions within each state define how the machine will behave in said state while transitions between states are the conditions than need to exist to allow the machine to transition from one state to another. Figure \ref{fig:stateMachineEx} shows the general concept of state machine design. State machine design can be written in arguably any language. Some languages, like GRAPH by Siemens, are based on the concept of state machine design as evident by the look and feel of the language\cite{siemensGraph}. 
 
     \HD{If you get time - find a reference that backs up what you have said here about state machine design}
 
@@ -331,8 +331,7 @@ The lolly machine is, in essence, an automatic machine. This section investigate
         \includegraphics[width = 0.7\textwidth]{2_images/rs232Trans.png}
         \caption{A RS-232 data transmission~\cite{frenzel2015handbook}.}
         \label{fig:rs232Trans}
-    \end{figure} 
-    \newpage    
+    \end{figure}   
     
     \subsubsection{RS-485}
     The RS-485 serial protocol is used for communication between the Arduino and the \acrshort{plc}.
