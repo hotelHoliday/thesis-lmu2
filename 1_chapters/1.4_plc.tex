@@ -1,6 +1,6 @@
 Programming the \acrshort{plc} was one of the largest tasks undertaken during the \acrshort{lmu} project. This task is multifaceted and includes design and implementation and is refereed to as ``Machine Program Development". This chapter discusses how the \acrshort{plc} has been programmed.
 
-``CLICK Programming Software'' was used to program the \acrshort{plc}. The software is relatively basic in comparison to others that are currently available on the market. The simplistic nature of the software is great from a learning perspective as the limited functionality allows new \acrshort{plc} programmers to become quickly acquainted with the software. The limited functionality also has it's downsides, the main one for this project being an inability to build custom functions, custom functions are useful when programming repetitive logic and would have been particularly helpful while programming some alarming logic - this will be discussed in section \ref{sec:valveFtoFtc}. ``CLICK Programming Software'' is accessible for free through the following link - \href{https://www.automationdirect.com/clickplcs/free-software/free-click-software}{CLICK Software ``LINK''} \cite{clickSoftwareDownload}.
+``CLICK Programming Software'' was used to program the \acrshort{plc}. The software is relatively basic in comparison to others that are currently available on the market. The simplistic nature of the software is great from a learning perspective as the limited functionality allows new \acrshort{plc} programmers to become quickly acquainted with the software. The limited functionality also has it's downsides, the main one for this project being an inability to build custom functions, custom functions are useful when programming repetitive logic and would have been particularly helpful while programming some alarming logic - this will be discussed in section \ref{sec:replacePlc}. ``CLICK Programming Software'' is accessible for free through the following link - \href{https://www.automationdirect.com/clickplcs/free-software/free-click-software}{CLICK Software ``LINK''} \cite{clickSoftwareDownload}.
 
 \section{I/O}
     For the \acrshort{plc} to be able to interact with the outside world, all \acrshort{io} needs to be configured and mapped. \acrshort{io} mapping is the process of setting up the \acrshort{plc} so that read (inputs) and write (outputs) addresses can be easily accessed throughout the program. For this project, virtual \acrshort{io} refers to signals that do not have an association with anything physical on the machine while physical \acrshort{io} does. For example, an instruction to from the Siemens \acrshort{hmi} to the \acrshort{plc} would be considered virtual while an instruction from a push button is considered physical. Some considerations made during this process are as follows:
@@ -76,7 +76,14 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
         \end{figure}
         
     \subsection{Output Mapping} \label{sec:output}
+        Output mapping involves exclusively physical \acrshort{io} and consists of basic logic that dictates when outputs should turn on. When the device is in automatic mode, an internal variable driven from machine logic is linked to the output variable. When the machine is in manual mode, the variable associated with the selected control device is mapped directly to the output. 
 
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width = 0.6\textwidth]{2_images/outputMapping}
+            \caption{Output mapping to physical outputs.}
+            \label{fig:outputMapping}
+        \end{figure}        
 
 \section{Machine Design and Implementation}
     The overall structure of the \acrshort{plc} code has been written in a modular style where program functions are split into separate subroutines. Subroutine Programs are called from the Main Program as illustrated in Figure \ref{fig:plcMainAuto}. The Main Program is designed to be simple and easy to read. The only logic that exists within the Main Program is overall state machine which allows for the machine to be in one of three modes: Automatic, Manual or Alarm. \HD{Appendix for the PLC program.}
@@ -94,7 +101,7 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
     
         \begin{figure}[H]
             \centering
-            \includegraphics[width = 0.4\textwidth]{2_images/mainStateMachine}
+            \includegraphics[width = 0.3\textwidth]{2_images/mainStateMachine}
             \caption{State Machine Design for the Main Program.}
             \label{fig:mainStateMachine}
         \end{figure}
@@ -125,15 +132,66 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
         \end{figure}
         
     \subsection{Alarm Mode}
+        An alarm subroutine program contains logic for alarm functions. There are 21 different conditions that will put the machine into alarm mode. Two words (See Table \ref{table:dataTypes}) are used to determine the specific nature of the alarm where each bit within each word is associated with a different alarm. A 16-bit integer represents the word within the \acrshort{plc}. To turn on individual bits within the 16 bit integer, the value of the corresponding bit is added to running total when the alarm is activated. Figure \ref{fig:alarmWord} below shows that when a \acrshort{ftc} alarm for V0 occurs, 2 is added to `alarmWord1'. The bit within `alarmWord1' corresponding to this alarm is bit number 2. 2 = 0000000000000010 .
+        Alarm words a reset by changing the value back to zero. 
 
-
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width = 0.6\textwidth]{2_images/alarmWord}
+            \caption{LL showing how alarm words are generated.}
+            \label{fig:alarmWord}
+        \end{figure}
 
 \section{Special Functions}
+    Special functions are those that are not necessary for the basic operation of the lolly machine but do add value to the overall function of the machine.
 
     \subsection{Automatic Shoot Unblock}
+        Sometimes, when a lolly is transferred from the primary hopper into the colour detection shoot, the proximity sensor that detects the presence of a lolly does not register that a lolly is in situ. When this happens, another lolly will be dropped into the shoot. This can often lead to a lolly jam and the machine will continue to drop lollies - even if the shoot is blocked. To combat this, the automatic shoot unblock function has been added into the sorting program. While the sorting program is running, there should never be a lolly in the color detection shoot for longer than two seconds. Logic has been included that will pause the sorting process and activate the automatic shoot unblock function whenever the proximity sensor that detects the presence of a lolly is obstructed for longer than three seconds. While the function is active, pressurised air is directed into the shoot while V5 alternates between positions. The combination of the pressurised air and a moving base(V5) works surprisingly well to dislodge stuck lollies. The unblocking function is active until the shoot is cleared. 
+        
+        Just as a side note, the reason the machine will attempt to drop an additional lolly if none are detected is because sometimes a lolly does not fall into the colour detection shoot when V4 actuates between positions. 
 
     \subsection{Automatic Control Source Recovery}
+        Automatic control source recovery is a function that automatically connects to an alternative control source when the one is use loses connection. For this function to work, the \acrshort{plc} must be able to detect when communication is healthy and unhealthy. In this project, communication status is detected through two separate methods. 
+
+        \begin{description}
+            \item[Heat Beat:] A heart beat is a periodically alternating Boolean signal that is produced/ broadcast by one device and received by another. The receiving device infers a healthy connection when the signal alternates within a given time, i.e., when the heart beat stops, communication is unhealthy.   
+            \item[Watch Dog:] A watchdog timer repetitively increments up to a predefined value. The timer value is produced/ broadcast by one device and received by another. An unhealthy connection between devices is registered when the receiving device doesn't detect a change in value for a given period.
+        \end{description}
+
+        Communication status of the Siemens \acrshort{hmi} is detected by a heartbeat signal within a status word while the Node-RED and LabVIEW program both utilise a watchdog timer. The Siemens heart beat is built into the configuration of the device while the watchdog timers for Node-RED and LabVIEW needed to be coded into the program, this can be seen within Appendix \HD{What is the Appendix number for the LabVIEW program and also the Node-RED program?}
+
+        \acrshort{ll} code shown in Figure \ref{fig:autoControlSourceRecovery} illustrates how the \acrshort{plc} automatically establishes a new connection when communication is lost from the current control source.  
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width = 0.6\textwidth]{2_images/autoControlSourceRecovery}
+            \caption{LL showing the automatic control source recovery.}
+            \label{fig:autoControlSourceRecovery}
+        \end{figure}        
 
     \subsection{Valve FTO/ FTC} \label{sec:valveFtoFtc}
+        \acrfull{fto} and \acrfull{ftc} logic puts the machine into alarm mode on the event that a valve either fails to open or fails to close. The idea that drives this function is pretty basic, if a valve is given an instruction to either open or close, and it does not, then a \acrshort{fto} or \acrshort{ftc} alarm will become active. This function is achieved by comparing the status of the output driving the valve with the inputs from the valve position sensors. If the sensor does not detect the correct valve position after two seconds then an alarm is activated. \acrshort{fto} and \acrshort{ftc} code was particularly cumbersome to write as the \acrshort{plc} software does not support custom functions, this is discussed in more detail in the future recommendations section \ref{sec:replacePlc}.
 
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width = 0.6\textwidth]{2_images/ftoLl}
+            \caption{LL of FTO logic for V0.}
+            \label{fig:ftoLl}
+        \end{figure}          
+        This function is capable of working in both automatic and manual mode.   
+        
+    \subsection{Strip LED on Front Surround}
+        An \acrshort{rgb} \acrshort{led} strip that surrounds the front of of the machine has been programmed to change colour whenever a lolly is dropped into the colour detection shoot where the \acrshort{led} colour matches that of the lolly. This is achieved through the use of an Arduino microcontroller and the RS-485 communication port of the \acrshort{plc}. When a new colour is detected, an RS485 signal is transmitted from the \acrshort{plc} and received by the Arduino. The Arduino then controls the \acrshort{led} strip through a communication protocol called \acrshort{spi} \footnote{For more information about \acrshort{spi} click on the \href{https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all}{\acrshort{spi} `LINK'} \cite{spi}}.
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width = 0.6\textwidth]{2_images/rgbStrip}
+            \caption{Communication flow between the PLC and RGB LED strip.}
+            \label{fig:rgbStrip}
+        \end{figure}          
+        
+        
+
+        
+        
     
