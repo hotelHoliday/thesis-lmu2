@@ -9,7 +9,7 @@ The lolly machine is comprised of many different components from pneumatic actua
     All mechanical movement within the lolly machine is driven by pneumatic actuators.
     
 \section{Linear Actuators}
-    Linear actuators, as the name suggests, provides linear movement to push and/or pull objects within a given process. The linear actuators on the lolly machine are powered by pneumatics. The main components of a linear actuator are as follows:
+    Linear actuators, as the name suggests, provides linear movement to push and/or pull objects within a given process. The linear actuators on the lolly machine are pneumatic. The main components of a linear actuator are as follows:
     
     \begin{description} 
         \item\textbf{Rod:} connects the actuator to the outside environment.
@@ -21,7 +21,6 @@ The lolly machine is comprised of many different components from pneumatic actua
     
     The fundamental concept is that the differential pressure between either side of the piston will cause it to move\cite{parr2011hydraulics}. The direction of movement is dependent on the flow of air through the extend and retract ports.
     
-    
     There are eight linear actuators installed on the lolly machine. Three are used within the sorting process while five are required for dispensing. Figure \ref{fig:rejectAct} shows the linear actuator responsible for dropping lollies into the colour sensing shoot.
 
     \begin{figure}[H] 
@@ -32,7 +31,7 @@ The lolly machine is comprised of many different components from pneumatic actua
     \end{figure}        
     
 \section{Rotary Actuators}
-    Rotary actuators provide rotational movement to objects through a central shaft\cite{parr2011hydraulics}. Rotation can be restricted or unrestricted. A rack and pinion or vanes facilitate the turning action within the actuator\cite{parr2011hydraulics}. Rotary actuators within the lolly machine are driven by a single vane and restricted to 90$^{\circ}$\cite{smcRot}. There are three rotary actuators installed on the lolly machine.
+    Rotary actuators provide rotational movement to objects through a central shaft\cite{parr2011hydraulics}. Rotation can be restricted or unrestricted. A rack and pinion or vanes facilitate the turning action within the actuator\cite{parr2011hydraulics}. Rotary actuators within the lolly machine are driven by a single vane and restricted to 90$^{\circ}$\cite{smcRot}. There are three rotary actuators installed on the lolly machine, these actuators are responsible for directing the lollies into the correct secondary hopper.
 
 \section{Pneumatic Control Valves}
     The pneumatic control valves on the lolly machine, manage air flow to pneumatically driven actuators. Pneumatic control valves are defined by the number of ports, positions, and their control action\cite{parr2011hydraulics}. Figure \ref{fig:controlValves} compares two different types of valves - (a) shows a four-port two-position valve (4/2) while (b) shows a four-port, 3-position valve(4/2). Figure \ref{fig:controlValveConfig} shows a possible internal configuration for the 4/3 valve. It is important to note that the above mentioned figures do not represent typical pneumatic valve symbols and are included to illustrate the differences between various types of control valve configurations.
@@ -93,7 +92,7 @@ The lolly machine is comprised of many different components from pneumatic actua
 
 \section{I/O}
     
-    \acrfull{io}, as the name suggests, are the inputs and outputs of a control system. Inputs are often referred to as sensors as they are devices that translate a real world signal into something that the \acrshort{cpu} can make sense of - this typically consists of some sort of electrical signal (Voltage or Current). Outputs, on the other hand, are often referred to as "final control elements" or "actuators". Output devices are how the control system is able to interact with the outside world.\\
+    \acrfull{io}, as the name suggests, are the inputs and outputs of a control system. Inputs are often referred to as sensors as they are devices that translate a real world signal into something that the \acrshort{cpu} can make sense of - this typically consists of some sort of electrical signal (Voltage or Current). Outputs, on the other hand, are often referred to as "final control elements" or "actuators". Output devices are how the control system is able to interact with the outside world.\newline
     There are four main types of \acrshort{io}:
 
     \begin{description}
@@ -273,6 +272,8 @@ The lolly machine is, in essence, an automatic machine. This section investigate
     \end{minipage}\hfill            
     \end{figure}     
 
+\section{Communication}
+
 \subsection{Data Types}
     Data types represent different numerical formats within a process control system. Most variables within the lolly machine are Boolean (bit). The below list defines the basic data types used within a process control system. Figure \ref{fig:int} shows how an 8 bit integer is represented in Boolean format.
     \begin{table}
@@ -303,8 +304,6 @@ The lolly machine is, in essence, an automatic machine. This section investigate
             \caption{An 8 bit integer \cite{petruzella2017programmable}.}
             \label{fig:int}
         \end{figure}         
-
-\section{Communication}
 
 \subsection{Serial}
     Serial communication is a method of data transfer between devices where data is transmitted and received one "bit" at a time \cite{frenzel2015handbook}. Communication is typically facilitated through copper wires where data is represented by electrical signals. Serial communication standards define the specifics as to exactly how the data is transferred and interpreted. Below are some basic descriptions of a few common terms used within serial communication.
@@ -366,9 +365,7 @@ The lolly machine is, in essence, an automatic machine. This section investigate
     \end{figure} 
 
     There are two main types of Ethernet devices - Client device and Server device. To best explain the relationship between Client and Server devices, the following analogy can be used. In a restaurant, the customer requests food from the waiter. The waiter listens to the customers request and proceeds to deliver the food back to the customer. If you haven't already guessed, the customer is the Client, the waiter is the Server and the food is data. This is similar to the a Master/ Slave relationship in serial networks where the Master is the Client and the Slave is the Server. It is not uncommon for devices to be both Clients and Servers, these types of devices are referred to as a Client-Server device.
-    
-        
-\section{Communication Protocols}
+
 \subsection{Modbus}
     Modbus is an open-source \footnote{Open-source means that the developers have made the protocol available to the public. This allows third parties to use the protocol in their own products.} communication protocol that was produced by Modicon \cite{frenzel2015handbook}. Modbus was originally used exclusively in serial networks (RS-232 and RS-485) but has now expanded to TCP/IP which runs over an Ethernet network\cite{frenzel2015handbook}. 
     

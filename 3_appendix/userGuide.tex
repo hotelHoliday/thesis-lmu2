@@ -1,7 +1,174 @@
-Traffic Light Indicator Key      
-    \begin{description}
-        \item[Red Solid] Alarm Mode. When in this state the machine will not run. 
-        \item[Amber Solid] Manual Mode.
-        \item[Green Flashing]  Automatic Mode - Ready
-        \item[Green Solid]  Automatic Mode - Enabled
-    \end{description}
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[scale = 0.3]{2_images/lollyMachineBw}
+    \caption{General arrangement of the lolly machine.}
+    \label{fig:lollyMachineBw}
+\end{figure}
+
+\section{Introduction}
+
+    Welcome to the lolly machine user guide. This guide contains basic instructions on how to use the lolly machine. This guide is split into four different sections - one containing general machine information and one for each control source. 
+
+
+\section{Lolly Machine - General Information}
+
+    \subsection{Start Up}
+        \begin{enumerate}
+            \item Connect the machine to a pneumatic air supply. Preferably shop-air. 
+            \item Plug the machine into a  10 amp general purpose outlet(power point).
+            \item Turn on the pneumatic supply valve then open the pressure regulator on the lolly machine so that it reads approximately 90 psig.
+            \item Switch on the general purpose outlet.
+        \end{enumerate}
+        
+        The lolly machine is now ready for operation. \newline
+        NOTE: When the lolly machine first starts up it is common to get multiple FTO and FTC faults. These are easily cleared and acknowledged via the either of the HMIs.
+        
+ 
+
+    \subsection{Operating Modes}
+        The lolly machine has three different modes of operation which are outlined in the descriptions below.
+
+            \subsubsection{ALARM MODE} While in the alarm mode, the machine is inoperable. This is to prevent any unwanted/ unexpected movement. The machine will go into alarm mode when an alarm is activated. There are two three types of alarms on the lolly machine.
+            \begin{enumerate}
+                \item\textbf{FTO:} Fail to Open. An FTO alarm will occur in the event that a valve fails to open.
+                \item\textbf{FTC:} Fail to Close. An FTC alarm will occur in the event that a valve fails to close.
+                \item\textbf{E-STOP:} Then machine will alarm if the emergency stop button is pressed.
+            \end{enumerate}
+            
+           \subsubsection{MANUAL MODE}
+                While in manual mode, valves on the lolly machine are manually driven. None of the automatic functions work while in manual. 
+                
+            \subsubsection{AUTOMATIC MODE}
+                If the machine is enabled in automatic mode, the sort and dispense functions are available. Enabling the machine in automatic mode is achievable through each of the HMIs.
+                \begin{description}
+                    \item[Sort] The machine will sort lollies as a function of colour from the primary hopper to the secondary hoppers.
+                    \item[Dispense] The machine will dispense lollies from the secondary hoppers to the user.
+                \end{description}
+                
+    \subsection{Traffic Light Indicator Key}          
+        \begin{description}
+            \item[Red Solid] Alarm Mode. When in this state the machine will not run. 
+            \item[Amber Solid] Manual Mode.
+            \item[Green Flashing]  Automatic Mode - Not Enabled
+            \item[Green Solid]  Automatic Mode - Enabled
+        \end{description}
+
+    
+    
+\section{Siemens HMI}
+    The Siemens HMI is physically mounted to the front panel and is intended to be the main HMI of the machine. Various machine functions can be achieved through this HMI.
+    
+    \subsection{F Keys}
+        \begin{description}
+        \item[F1:] Go to home screen
+            \item[F2:] Go to play screen
+            \item[F3:] Spare 
+            \item[F4:] Spare
+            \item[F5:] Toggle sorting program
+            \item[F6:] Reset/ acknowledge alarms
+            
+            The `F' keys have been intentionally left unlabeled to discourage younger users from pressing the buttons. 
+        \end{description}  
+    
+
+    \subsection{Alarm}
+        When an alarm is active, an alarm popup will appear on the screen showing the alarm details. To clear the alarms, press the F1 button. The alarms must then be acknowledged by pressing the `\!' button.
+    \subsection{Manual Operation}
+        To operate the machine in manual mode follow the proceeding steps: 
+            \begin{enumerate}
+                \item Go to the home screen by pressing F1.
+                \item Ensure that the HMI is the connected control source (Text of the `Control Source' window is highlighted green)
+                \item Press the `Mode' button so the `Manual' indicator underneath is green. 
+                \item Press the `Manual' button located in the `Screens' window - this will open the `Manual' screen.
+                \item Press the valve buttons to toggle them on and off. The buttons will be change colour depending on the state of the valve.
+            \end{enumerate}
+
+    \subsection{Automatic Operation}
+        To use the machine in automatic mode, follow the proceeding steps. 
+            \begin{enumerate}
+                \item Go to the home screen by pressing F1.
+                \item Ensure that the HMI is the connected control source (Text of the `Control Source' window is highlighted green)
+                \item Press the `Mode' button so the `Auto.' indicator underneath is green.
+                \item Enable the machine by pressing the `ON' button in the `Auto. Control' window.
+                \item Press the F2 button any time while the machine is enabled in automatic mode to toggle the sorting program. 
+                \item Press F2 or the `Play' button in the `Screens' window to open the play time screen.
+                \item Select the desired lollies by pressing the lolly colour buttons (four buttons in the middle of the page with a coloured circle housed in a grey box). Once the lolly colours have been selected, press the `GET IT' button to dispense said lollies. Only one of each colour lolly can be dispensed at a time. 
+                \item To disable the automatic functions, press the `OFF' button in the `Auto.Control' window. If it's an emergency, press the emergency stop button on the side of the machine. 
+            \end{enumerate}
+        \subsection{IO Status}
+            The IO status of the machine can be viewed at anytime regardless as to the operating mode and control source. The IO status page is read only and is accessible on the Siemens HMI through the proceeding steps. 
+
+        \begin{enumerate}
+            \item Go to the home screen by pressing F1.
+            \item Press the `IO' button located within the Screens `window'.
+        \end{enumerate}
+            
+            
+\section{LabVIEW Application}
+        A LabVIEW application to control and monitor the lolly machine has also been developed. This interface has been built with an intuitive design to allow operators to easily troubleshoot and diagnose problems.
+        
+    \subsection{Setup} 
+        \begin{enumerate}
+            \item Set the static IP address of the EWS to 192.168.113.
+            \item Open the LabVIEW run-time program.
+            \item Run the LabVIEW run-time program.
+        \end{enumerate}
+        
+    \subsection{General Operation}
+        Once the LabVIEW application has been opened a text window with multiple tabs provides instruction on how to use the application. 
+        
+\section{Node-RED Dashboard}
+    A Node-RED service running on a Raspberry Pi provides a method of control, accessible via WiFi enabled devices.
+    Once connected to the Node-RED dashboard, there are two main tabs - one for control and one to view I/O status. 
+    
+    \subsection{Setup}
+        \begin{enumerate}
+            \item Connect to the Raspberry Pi WiFi
+            \begin{description}
+                \item Network Name: Lolly Machine
+                \item Password: iwantcandy
+            \end{description}
+            \item Open a web browser (preferably Chrome, Safari, Edge or Mozilla Firefox)
+            \item Go to \href{https://192.168.1.120:1880/ui}{192.168.1.120:1880/ui}
+            \item Welcome to the Node-RED dashboard for the lolly machine. 
+        \end{enumerate}
+        
+    \subsection{Alarm}
+        If the `ALARM' indicator underneath the General header is red, an alarm is active. First try to reset the alarm by pressing the `RESET button under the `General' header. If this doesn't work, check the HMI mounted to the front of the lolly machine for a detailed description of the alarm.
+    
+    \subsection{Manual Operation}
+            To operate the machine in manual mode, follow the proceeding steps. 
+            \begin{enumerate}
+                \item Go to the `Control' tab.
+                \item Ensure that `Node-RED' is selected under the `Control Source' header. If it is not selected, press `REQUEST CONTROL' under the `General' header. 
+                \item Move the `Auto/ Manual' slider under the `General' header to the right.
+                \item To toggle outputs, move the desired sliders under the `Manual' header.
+            \end{enumerate}
+
+        \subsection{Automatic Operation}
+            To operate the machine in automatic mode, follow the proceeding steps. 
+            \begin{enumerate}
+                \item Go to the `Control' tab
+                \item Ensure that `Node-RED' is selected under the `Control Source' header. If it is not selected, press `REQUEST CONTROL' under the `General' header. 
+                \item Move the `Auto/ Manual' slider under the `General' header to the left.
+                \item To enable the machine in automatic mode, press the `ON' button under the `Auto.' header. 
+                \item Move the `Sort' slider under the `Auto.' header at any time while automatic mode is enabled to toggle the sorting program.
+                \item Select the desired lollies by pressing the `COL.[1-4]' buttons under the `Auto' header. Once the lolly colours have been selected, press the ‘GET’ button to dispense said lollies. Only one of each colour lolly can be dispensed at a time.
+                \item To disable automatic functions, press the `OFF' button under the `Auto.' header. If it's an emergency, press the emergency stop button on the side of the machine.
+            \end{enumerate}
+
+            \subsection{IO Status}
+                To view the I/O status, open the `IO Status' tab. This tab is organised into four different columns with the following headers. 
+                \begin{description}
+                    \item Proximity Sensors
+                    \item Valves
+                    \item Colour Sensors
+                    \item Auto Switches
+                \end{description}
+
+        
+
+
+

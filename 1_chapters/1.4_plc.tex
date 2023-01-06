@@ -2,6 +2,7 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
 
 ``CLICK Programming Software'' was used to program the \acrshort{plc}. The software is relatively basic in comparison to others that are currently available on the market. The simplistic nature of the software is great from a learning perspective as the limited functionality allows new \acrshort{plc} programmers to become quickly acquainted with the software. The limited functionality also has it's downsides, the main one for this project being an inability to build custom functions, custom functions are useful when programming repetitive logic and would have been particularly helpful while programming some alarming logic - this will be discussed in section \ref{sec:replacePlc}. ``CLICK Programming Software'' is accessible for free through the following link - \href{https://www.automationdirect.com/clickplcs/free-software/free-click-software}{CLICK Software ``LINK''} \cite{clickSoftwareDownload}.
 
+
 \section{I/O}
     For the \acrshort{plc} to be able to interact with the outside world, all \acrshort{io} needs to be configured and mapped. \acrshort{io} mapping is the process of setting up the \acrshort{plc} so that read (inputs) and write (outputs) addresses can be easily accessed throughout the program. For this project, virtual \acrshort{io} refers to signals that do not have an association with anything physical on the machine while physical \acrshort{io} does. For example, an instruction to from the Siemens \acrshort{hmi} to the \acrshort{plc} would be considered virtual while an instruction from a push button is considered physical. Some considerations made during this process are as follows:
     
@@ -12,6 +13,14 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
     \end{enumerate}
 
     All physical \acrshort{io} are terminated into either,  ADAM remote \acrshort{io} modules or directly into the \acrshort{plc} \acrshort{io}, typically refereed to as onboard \acrshort{io}.
+
+    The following list provides a brief description for the various types of physical \acrshort{io} used on the lolly machine. 
+
+    \begin{description}
+        \item[V(k):] V = Valve, k = Valve number.
+        \item[S(lm):] S = Position switch, l = associated valve, m = position switch number.
+        \item[C(n):] C = Colour sensor, n = Sensor number.
+    \end{description}
 
 
 
@@ -30,10 +39,9 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
 
         \begin{figure}[H]
             \centering
-            \includegraphics[width = 0.3\textwidth]{2_images/smile.png}
+            \includegraphics[width = 0.4\textwidth]{2_images/plcInstall}
             \caption{The Click PLC and expansion digital output module.}
-            \label{fig:plcIO}
-            \HD{Picture of PLC with terminations}
+            \label{fig:plcInstall}
         \end{figure}
     
     \subsection{Modbus I/O}
@@ -52,7 +60,7 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
             NOTE: Modbus address indexing can vary from device as some manufactures start from 0 while the others at 1. 
             
         \subsubsection{Client}
-            The \acrshort{plc} Modbus Client is used to access the remote \acrshort{io} ADAM modules. Internal \acrshort{plc} addresses are linked Server Modbus address of the ADAM modules through the use of receive and send functions within the \acrshort{plc}. Figure \ref{fig:plcModbusClient} shows the send and receive functions for DAQ-03. The receive function (top) is reading 8 bits of data (8 addresses) with a starting Modbus address of 01 and mapping then to internal Boolean variables, C232 to C240. The send function (middle), is writing to 7 Modbus address on DAQ-03, from 17 to 24 - these are driven by internal variables C240 to C247.
+            The \acrshort{plc} Modbus Client is used to access the remote \acrshort{io} ADAM modules. Internal \acrshort{plc} addresses are linked Server Modbus address of the ADAM modules through the use of receive and send functions within the \acrshort{plc}. Figure \ref{fig:plcModbusClient} shows the send and receive functions for DAQ-03. The receive function (top block of Figure \ref{fig:plcModbusClient}) is reading 8 bits of data (8 addresses) with a starting Modbus address of 01 and mapping then to internal Boolean variables, C232 to C240. The send function (middle block of Figure \ref{fig:plcModbusClient}), is writing to 7 Modbus address on DAQ-03, from 17 to 24 - these are driven by internal variables C240 to C247.
 
             A maximum of one communication function can be executed per \acrshort{plc} cycle. A counter is used to alternate between each communication function as illustrated in Figure \ref{fig:plcModbusClient} (bottom function).
 
@@ -86,7 +94,7 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
         \end{figure}        
 
 \section{Machine Design and Implementation}
-    The overall structure of the \acrshort{plc} code has been written in a modular style where program functions are split into separate subroutines. Subroutine Programs are called from the Main Program as illustrated in Figure \ref{fig:plcMainAuto}. The Main Program is designed to be simple and easy to read. The only logic that exists within the Main Program is overall state machine which allows for the machine to be in one of three modes: Automatic, Manual or Alarm. \HD{Appendix for the PLC program.}
+    The overall structure of the \acrshort{plc} code has been written in a modular style where program functions are split into separate subroutines. Subroutine Programs are called from the Main Program as illustrated in Figure \ref{fig:plcMainAuto}. The Main Program is designed to be simple and easy to read. The only logic that exists within the Main Program is overall state machine which allows for the machine to be in one of three modes: Automatic, Manual or Alarm. A full printout of the \acrshort{plc} program can be found in Appendix \ref{app:plcProg}.
 
         \begin{figure}[H]
             \centering
@@ -118,11 +126,23 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
             When an alarm is present, the machine will go into alarm mode. While in Alarm mode, the machine will be inoperable and outputs will go back to their default position. When the machine is in alarm mode, the red \acrshort{led} status indicator will be on.
 
     \subsection{Dispensing}
-        Dispensing is a function of the lolly machine which is possible when the machine is enabled in automatic mode. While in this mode, the machine is constantly waiting for an input from the user to so that it knows which colour/s of lolly to dispense. Once the user has finished selecting the their desired colours, the user presses the get button and the machine will dispense the lollies. This is completed through general logic and can be found in appendix \HD{Appendix Number for the Ladder Logic Printout goes here}.
+        Dispensing is a function of the lolly machine which is possible when the machine is enabled in automatic mode. While in this mode, the machine is constantly waiting for an input from the user to so that it knows which colour/s of lolly to dispense. Once the user has finished selecting the their desired colours, the user presses the get button and the machine will dispense the lollies. This function has been coded using general ladder logic programming principles and can be found in Appendix \ref{app:plcProg}.
         \HD{Could add more detail here...}
         
     \subsection{Sort}
-        The sorting subroutine is the most complex piece of code within the controller and has been written exclusively in state machine design. Rather than explain how this part of the program works, an illustration of the design is shown in Figure \ref{fig:sortStateMachine} which does a terrific job of showing all possible states and transitions. 
+        The sorting subroutine is the most complex piece of code within the controller and has been written exclusively in state machine design. The basic process flow is as follows. 
+
+        \begin{enumerate}
+            \item A lolly is transferred form the the primary hopper into the colour detection shoot.
+            \item The lolly colour will be detected and the colour paddles will move into position.
+            \item The lolly will drop into the the secondary hopper associated with the detected colour.
+            \item Repeat.
+        \end{enumerate}
+
+        If the colour cannot be detected then the lolly is recycled back into the primary hopper viz the reject hopper and shoot. 
+
+        An illustration of the state machine design shown in Figure \ref{fig:sortStateMachine} provides a detailed view of all possible actions and transitions within the sorting algorithm.
+
 
         \begin{figure}[H]
             \centering
@@ -150,7 +170,7 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
         
         Just as a side note, the reason the machine will attempt to drop an additional lolly if none are detected is because sometimes a lolly does not fall into the colour detection shoot when V4 actuates between positions. 
 
-    \subsection{Automatic Control Source Recovery}
+    \subsection{Automatic Control Source Recovery} \label{sec:autoConRec}
         Automatic control source recovery is a function that automatically connects to an alternative control source when the one is use loses connection. For this function to work, the \acrshort{plc} must be able to detect when communication is healthy and unhealthy. In this project, communication status is detected through two separate methods. 
 
         \begin{description}
@@ -158,8 +178,7 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
             \item[Watch Dog:] A watchdog timer repetitively increments up to a predefined value. The timer value is produced/ broadcast by one device and received by another. An unhealthy connection between devices is registered when the receiving device doesn't detect a change in value for a given period.
         \end{description}
 
-        Communication status of the Siemens \acrshort{hmi} is detected by a heartbeat signal within a status word while the Node-RED and LabVIEW program both utilise a watchdog timer. The Siemens heart beat is built into the configuration of the device while the watchdog timers for Node-RED and LabVIEW needed to be coded into the program, this can be seen within Appendix \HD{What is the Appendix number for the LabVIEW program and also the Node-RED program?}
-
+        Communication status of the Siemens \acrshort{hmi} is detected by a heartbeat signal within a status word while the Node-RED and LabVIEW program both utilise a watchdog timer. The Siemens heart beat is built into the configuration of the device while the watchdog timers for Node-RED and LabVIEW needed to be coded into the program.
         \acrshort{ll} code shown in Figure \ref{fig:autoControlSourceRecovery} illustrates how the \acrshort{plc} automatically establishes a new connection when communication is lost from the current control source.  
 
         \begin{figure}[H]
@@ -180,7 +199,7 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
         \end{figure}          
         This function is capable of working in both automatic and manual mode.   
         
-    \subsection{Strip LED on Front Surround}
+    \subsection{Strip LED on Front Surround} \label{sec:stripLed}
         An \acrshort{rgb} \acrshort{led} strip that surrounds the front of of the machine has been programmed to change colour whenever a lolly is dropped into the colour detection shoot where the \acrshort{led} colour matches that of the lolly. This is achieved through the use of an Arduino microcontroller and the RS-485 communication port of the \acrshort{plc}. When a new colour is detected, an RS485 signal is transmitted from the \acrshort{plc} and received by the Arduino. The Arduino then controls the \acrshort{led} strip through a communication protocol called \acrshort{spi} \footnote{For more information about \acrshort{spi} click on the \href{https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all}{\acrshort{spi} `LINK'} \cite{spi}}.
 
         \begin{figure}[H]
@@ -188,7 +207,9 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
             \includegraphics[width = 0.6\textwidth]{2_images/rgbStrip}
             \caption{Communication flow between the PLC and RGB LED strip.}
             \label{fig:rgbStrip}
-        \end{figure}          
+        \end{figure} 
+
+        
         
         
 

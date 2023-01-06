@@ -1,5 +1,5 @@
 \section{Overview}
-    The system architecture of a control system is a model that defines the relationships between all  components required to complete the system \remCite . System architecture models are typically illustrated by block diagrams with labeled lines between components - the labeled lines indicate the the relationship between each component. 
+    The system architecture of the lolly machine control system is a model that defines the relationships between all  components required to complete the system. System architecture models are typically illustrated by block diagrams with labeled lines between components - the labeled lines indicate the the relationship between each component. 
 
     Various considerations were made during the design stage of the project to ensure the overall architecture was as “fit for purpose” as possible. These overarching considerations concerned hardware selection and network type.
 
@@ -13,7 +13,7 @@
         System robustness is always a requirement when designing the architecture of a control system. This consideration is directly related to reliability - which is important as you don’t want a system that is prone to failure - especially when you are mixing kids and candy!!! For this project, system robustness was implemented mainly through logic within the \acrshort{plc} - this will be discussed in more detail later within the report. 
     
     \subsection{Standardisation}
-        Standardisation is tied in with simplicity - it's a good thing to keep things as standard as possible as this means that the system is easier to setup, program and troubleshoot. Standardisation is noticeable within the communication structure of the lolly machine as Modbus TCP/IP is used almost exclusively. Another area that could have been standardised for this project is hardware selection. Due to budget constraints,  there are various brands of hardware that have been used for this project. Ideally they would have been all of the same make. Another place that standardisation has been implemented within the project is the “way” that the code has been written - this will be discussed in more deatil later within the document.
+        Standardisation is tied in with simplicity - it's a good thing to keep things as standard as possible as this means that the system is easier to setup, program and troubleshoot. Standardisation is noticeable within the communication structure of the lolly machine as Modbus TCP/IP is used almost exclusively. Another area that could have been standardised for this project is hardware selection. Due to budget constraints,  there are various brands of hardware that have been used for this project. Ideally they would have been all of the same make. Another place that standardisation has been implemented within the project is the “way” that the code has been written - this will be discussed in more detail later within the document.
     
     
         
@@ -69,8 +69,7 @@
     
         \href{https://www.advantech.com/en-au/products/7447e150-338d-402d-b5a1-c9ce6d98816e/adam-6251/mod_98139b28-a181-4c45-83c9-01db52c3db7f}{ADAM-6251 "LINK"} \cite{6251Data} 
         
-        
-        \HD{reference the io sheet in the appendix}
+
     \subsection{Siemens HMI}
         A Siemens KTP-600 Touch Panel is the main \acrshort{hmi} and has been permanently installed on the front of the lolly machine. The Siemens \acrshort{hmi} has been selected because it was already on campus and has the capability to communicate over Modbus TCP/IP. Specifics to how the \acrshort{hmi} functions is discussed in detail in Chapter \ref{chap:hmi}.
     
@@ -89,7 +88,12 @@
     \subsection{Raspberry Pi}
     A Raspberry-Pi microcontroller/ embedded PC has been setup as a wireless gateway for the lolly machine control system. The main function of the Pi is to host a program called NODE-RED which is an open sourced flow-based programming environment. For this project, Node-RED is used to interface a web based dashboard with the \acrshort{plc}. More information detailing the structure of the Node-Red flows is later discussed in Chapter /ref{chap:hmi}.
     
-    \HD{Insert photograph of Raspberry-Pi installed on the machine}	
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width = 0.4\textwidth]{2_images/raspPiInstall}
+            \caption{The Raspberry Pi that has been installed in the lolly machine.}
+            \label{fig:raspPiInstall}
+        \end{figure}
     
     
     \subsection{Arduino}
@@ -162,7 +166,7 @@
         
 
 
-        The hierarchy of control, in regard to device-device communication, on the Lolly machine has been structured in a way that aims to facilitate a pragmatic, intuitive and robust method of communication between devices. The structure can be illustrated in a three tiered model where each tier is associated with a different communication function. All communication is achieved through Modbus TCP/IP over Ethernet with two exceptions which will be discussed later in Section \HD{ Figure out what section this is gonna be talked in!}
+        The hierarchy of control, in regard to device-device communication, on the Lolly machine has been structured in a way that aims to facilitate a pragmatic, intuitive and robust method of communication between devices. The structure can be illustrated in a three tiered model where each tier is associated with a different communication function. All communication is achieved through Modbus TCP/IP over Ethernet with two exceptions which will be discussed later in Section \ref{sec:stripLed}.
 
         In a nutshell, the communication structure is pretty basic. Using terminology of a basic working relationship between a manager,  engineer and graduate,  the following can be applied to the communication structure of the Lolly Machine. A \acrshort{hmi} Client device (Tier 1) is the manager and tells the \acrshort{plc} Client-Server device (the engineer) what to do. The Engineer is responsible for doing some of her own work but is also in charge passing on certain tasks to the graduate. In the case of the Lolly Machine, it’s the same. The \acrshort{plc} is responsible for it’s own work but also passes some tasks down to the remote \acrshort{io} (graduate) in Tier 3. The remote \acrshort{io} is incapable of instructing the \acrshort{plc} what to do. 
 

@@ -1,0 +1,127 @@
+
+
+\begin{lstlisting}[language=C, caption = Lolly machine arduino code., label=list:arduinoCode1]
+#include "FastLED.h"
+    // number of LEDs in the strip
+    #define NUM_LEDS 60
+    // define the data pin on the Arduino
+    #define DATA_PIN 3
+    // define the clock pin on the Arduino
+    #define CLOCK_PIN 13
+    // define variables
+    long data;
+    int bytesAtPort;
+    byte r,g,b;
+    int lollyCol = 1;
+    int i;
+    // create led object
+    CRGB leds[NUM_LEDS];
+    void setup() { 
+          FastLED.addLeds<P9813, DATA_PIN, CLOCK_PIN, RGB>(leds, NUM_LEDS);
+          Serial.begin(9600);
+          Serial.setTimeout(500);
+    }
+    void loop() { 
+    
+      if (Serial.available() > 0) {
+    	  
+    	// check to see how many bytes are at port - diagnostics  
+        bytesAtPort = Serial.available();
+        
+        // read the incoming byte:
+        data = Serial.read();
+        
+        // say what you got:
+        Serial.print("I received: ");
+        Serial.println(data);
+        // offset ascii value to get colour
+        lollyCol = data -48;
+        Serial.print("So the lolly colour number must be: ");
+        Serial.println(lollyCol);
+    
+        switch(lollyCol){
+          case 1: // white
+            r = 0;
+            g = 255;
+            b = 255;
+            break;
+        
+          case 2: // yellow/orange
+            r = 255;
+            g = 212;
+            b = 0;
+            break;
+        
+          case 3: // green
+            r = 0;
+            g = 255;
+            b = 0;
+            break;
+        
+          case 4: // pink
+            r = 255;
+            g = 0;
+            b = 255;
+            break;
+        }
+        
+         // Turn the LED on, then pause
+         for (i = 0; i < NUM_LEDS; i++){
+         leds[i] = CRGB(r,g,b);
+         }
+         
+         FastLED.show();
+      }
+    }
+\end{lstlisting}
+
+\begin{lstlisting}[language=C, caption=Arduino code that randomaly changes the clour of each RGB.  label=list:arduinoCode2]
+    #include "FastLED.h"
+    // How many leds in your strip?
+    #define NUM_LEDS 60
+    // For led chips like Neopixels, which have a data line, ground, and power, you just
+    // need to define DATA_PIN.  For led chipsets that are SPI based (four wires - data, clock,
+    // ground, and power), like the LPD8806 define both DATA_PIN and CLOCK_PIN
+    #define DATA_PIN 3
+    #define CLOCK_PIN 13
+    // Define the array of leds
+    long data;
+    int bytesAtPort;
+    byte r,g,b;
+    int lollyCol = 1;
+    int i;
+    CRGB leds[NUM_LEDS];
+    void setup() { 
+          FastLED.addLeds<P9813, DATA_PIN, CLOCK_PIN, RGB>(leds, NUM_LEDS);
+          Serial.begin(9600);
+          Serial.setTimeout(500);
+    }
+    void loop() { 
+      
+    // frustrating christmas
+      if (i > NUM_LEDS) {
+        i = 1;
+      }
+    //  leds[i] = CRGB::Green;
+    //  leds[i+1] = CRGB::Green;
+    //  leds[i+2] = CRGB::Green;
+    //  leds[i+3] = CRGB::Green;
+    //  leds[i-1] = CRGB::Red;
+    //  i++;
+    //  delay(i*10)
+    
+      
+    // fairy display
+      r = random(1,255);
+      g = random(1,255);
+      b = random(1,255);
+      i = random(0,59);
+      leds[i] = CRGB(r,g,b);
+    
+      delay(500);
+      
+      FastLED.show();
+      
+      }
+    
+\end{lstlisting}
