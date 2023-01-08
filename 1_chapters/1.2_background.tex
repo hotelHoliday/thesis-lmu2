@@ -2,7 +2,7 @@
 
 % should i preface the reader with the reason for the background?
 % what is the reason for the background?
-The lolly machine is comprised of many different components from pneumatic actuators to industrial communication protocols - most of which do not come under the banner of common knowledge. The background section aims to preface the reader with all necessary information required to understand all components, hence allowing the reader to comprehend the work that has been completed. 
+The lolly machine is comprised of many different components from pneumatic actuators to industrial communication systems - most of which do not come under the banner of common knowledge. This background section aims to preface the reader with the necessary information required to understand all components, hence allowing the reader to comprehend the work that has been completed. 
 
 \section{Pneumatics}
     Pneumatics is a category of mechanical engineering  where air flow is converted into mechanical energy\cite{parr2011hydraulics}. The mechanical energy is then used to do work. A typical application of pneumatics is to move an actuator from one position to another, i.e. from open to closed. Pneumatics are common within the food processing industry as a malfunction within the system will not spoil the product.
@@ -15,8 +15,8 @@ The lolly machine is comprised of many different components from pneumatic actua
         \item\textbf{Rod:} connects the actuator to the outside environment.
         \item\textbf{Piston:} facilitates movement to the rod through applied pressure to either side.
         \item\textbf{Barrel:} houses the piston.
-        \item\textbf{Extend Port:} when air enters, the rod will extend outwards.
-        \item\textbf{Retract Port:} When air enters, the rod will retract inwards.
+        \item\textbf{Extend Port:} when air enters, the rod will extend outwards provided the retract port is open.
+        \item\textbf{Retract Port:} When air enters, the rod will retract inwards provided the extend port is open.
     \end{description}
     
     The fundamental concept is that the differential pressure between either side of the piston will cause it to move\cite{parr2011hydraulics}. The direction of movement is dependent on the flow of air through the extend and retract ports.
@@ -118,7 +118,7 @@ The lolly machine is comprised of many different components from pneumatic actua
         \end{figure}
 
     \subsubsection{Proximity Sensors}
-        Two proximity sensors are installed on the lolly machine. The sensors determine whether or not a lolly is in situ. The proximity sensors installed on the lolly machine are capacitive; this allows the sensors to detect ferrous and non-ferrous materials. Figure \ref{fig:proxSens} illustrates the general function of a proximity sensors. In the case of the lolly machine, the proximity sensors are \acrshort{nc} which means that the output is on when the target is detected and off while the target is not.
+        Two proximity sensors are installed on the lolly machine. These sensors determine whether or not a lolly is in situ. The proximity sensors installed on the lolly machine are capacitive. This allows the sensors to detect ferrous and non-ferrous materials. Figure \ref{fig:proxSens} illustrates the general function of a proximity sensors. In the case of the lolly machine, the proximity sensors are \acrshort{nc} which means that the output is on when the target is detected and off while the target is not.
     \begin{figure}[H]
     \begin{minipage}{0.35\textwidth}
         \centering
@@ -185,7 +185,6 @@ The lolly machine is, in essence, an automatic machine. This section investigate
 \section{State Machine Design}
     State machine design, sometimes refereed to as sequential machine design, is a systematic method of programming which is commonly used to structure and machine code. Different variations of state machine design exist within industry and sometimes they can be difficult to identify, making the code look unnecessarily complicated and confusing to read. State machine design is comprised of different states with transitions between states. Actions within each state define how the machine will behave in said state while transitions between states are the conditions than need to exist to allow the machine to transition from one state to another. Figure \ref{fig:stateMachineEx} shows the general concept of state machine design. State machine design can be written in arguably any language. Some languages, like GRAPH by Siemens, are based on the concept of state machine design as evident by the look and feel of the language\cite{siemensGraph}. 
 
-    \HD{If you get time - find a reference that backs up what you have said here about state machine design}
 
         \begin{figure}[H]
         \centering
@@ -218,9 +217,9 @@ The lolly machine is, in essence, an automatic machine. This section investigate
     \end{minipage}\hfill            
     \end{figure}   
     
-    Originally, \acrshort{plc}s where exclusively programmed in a language called \acrfull{ld}\cite{petruzella2017programmable}. Ladder logic is a visual programming language based on electrical control schematics and was designed to be used by the same people who were building the relay logic based control systems ,electricians\cite{petruzella2017programmable}. In more recent times \acrshort{plc}s have become more sophisticated and can be programmed in a variety of languages including \acrfull{st} which is a text based language\cite{petruzella2017programmable}. 
+    Originally, \acrshort{plc}s where exclusively programmed in a language called \acrfull{ll}\cite{petruzella2017programmable}. Ladder logic is a visual programming language based on electrical control schematics and was designed to be used by the same people, typically electricians, who were building the relay logic based control systems\cite{petruzella2017programmable}. In more recent times \acrshort{plc}s have become more sophisticated and can be programmed in a variety of languages including \acrfull{st} which is a text based language\cite{petruzella2017programmable}. 
     
-    A \acrshort{plc}'s main components are a power supply, \acrlong{cpu}, and \acrshort{io} modules. \acrshort{io} modules can be located locally or remotely. Local \acrshort{io} is physically connected to the \acrshort{plc} while remote \acrshort{io} is connected to the \acrshort{plc} via a communication line, this is illustrated in Figure \ref{fig:localRemoteIo}.
+    A \acrshort{plc}'s main components are a power supply, \acrlong{cpu}, and \acrshort{io} modules. \acrshort{io} modules can be located locally or remotely. Local \acrshort{io} is physically connected to the \acrshort{plc} while remote \acrshort{io} is connected to the \acrshort{plc} via a communication line, illustrated in Figure \ref{fig:localRemoteIo}.
        
     \begin{figure}[H]
         \centering
@@ -314,11 +313,11 @@ The lolly machine is, in essence, an automatic machine. This section investigate
     
     \item[Communication Mode] There are three different types of communication modes: Simplex, Half Duplex and Full Duplex. For the sake of simplicity, the following explanations are in reference to a peer-to-peer system comprising of only two devices, lets call them Device-A and Device-B. Simplex means that communication is one way - Device-A is capable of transmitting data while device-B is capable of only receiving data.
     
-    \item[Asynchronous/ Synchronous] Data transmission can be achieved through either synchronous or asynchronous methods of communication. \HD{Explain the differences and don't forget to reference.}
+    \item[Asynchronous/ Synchronous] Data transmission can be achieved through either synchronous or asynchronous methods of communication. Synchronous communication is when the communicating devices share a clock signal, allowing for scheduled communications. On the other hand, asynchronous communication is unscheduled where the start and finish of communication strings is indicated by start and stop bits \cite{frenzel2015handbook}. 
     
     \end{description}
     
-    The lolly machine utilises three flavours of serial communication, these are as follows.
+    The lolly machine utilises three flavours of serial communication, as follows.
     
     \subsubsection{RS-232}
     RS-232 has been around for a long time and is one of the older methods of serial communication. Although there are many superior methods of communication in this modern era, RS-232 is still common among industry. 
@@ -351,11 +350,11 @@ The lolly machine is, in essence, an automatic machine. This section investigate
             \label{fig:osi}
         \end{figure} 
     
-    An Ethernet network is established through physical cabling. Cabling can be coaxial, twisted copper pairs of fibre optic \cite{scott2021networking}.
+    An Ethernet network is established through physical cabling. Cabling can be coaxial, twisted copper pairs or fibre optic \cite{scott2021networking}.
     
-    All devices on the lolly machine support Ethernet, subsequently all devices are on the same \acrshort{lan}.
+    All control hardware (\acrshort{plc}s, \acrshort{daq}s and \acrshort{hmi}s) on the lolly machine support Ethernet, subsequently all devices are on the same \acrshort{lan}.
     
-    Each Ethernet device has a unique address which is called an \acrshort{ip} address. An \acrshort{ip} address is a four-octet, eight-bit address\cite{scott2021networking}.  
+    Each Ethernet device has a unique address which is called an \acrshort{ip} address. An \acrshort{ip} address is a four-octet, eight-bit address\cite{scott2021networking}. Table \ref{table:networkDevices} shows the \acrshort{ip} addresses of said control hardware. 
     
     \begin{figure}[H]
         \centering
@@ -364,15 +363,15 @@ The lolly machine is, in essence, an automatic machine. This section investigate
         \label{fig:ethenetCables}
     \end{figure} 
 
-    There are two main types of Ethernet devices - Client device and Server device. To best explain the relationship between Client and Server devices, the following analogy can be used. In a restaurant, the customer requests food from the waiter. The waiter listens to the customers request and proceeds to deliver the food back to the customer. If you haven't already guessed, the customer is the Client, the waiter is the Server and the food is data. This is similar to the a Master/ Slave relationship in serial networks where the Master is the Client and the Slave is the Server. It is not uncommon for devices to be both Clients and Servers, these types of devices are referred to as a Client-Server device.
+    There are two main types of Ethernet devices - Client device and Server device. To best explain the relationship between Client and Server devices, the following analogy can be used. In a restaurant, the customer requests food from the waiter. The waiter listens to the customers request and proceeds to deliver the food back to the customer. If you haven't already guessed, the customer is the Client, the waiter is the Server and the food is data. This is similar to the Master/ Slave relationship in serial networks where the Master is the Client and the Slave is the Server. It is not uncommon for devices to be both Clients and Servers, these types of devices are referred to as a Client-Server device.
 
 \subsection{Modbus}
     Modbus is an open-source \footnote{Open-source means that the developers have made the protocol available to the public. This allows third parties to use the protocol in their own products.} communication protocol that was produced by Modicon \cite{frenzel2015handbook}. Modbus was originally used exclusively in serial networks (RS-232 and RS-485) but has now expanded to TCP/IP which runs over an Ethernet network\cite{frenzel2015handbook}. 
     
-    There are two main types of devices in a Modbus network, the Master and Slave\cite{frenzel2015handbook}. The Master can request data from a slave but not vice versa. A Master cannot request data from another master and a slave cannot request data another slave. Some devices like \acrshort{plc}s can be Mater/Slaves allowing inter \acrshort{plc} communication and tiered hierarchy of control. E.g., the \acrshort{hmi} on the lolly machine controls the \acrshort{plc} and the \acrshort{plc} controls the remote \acrshort{io}. Modbus on an Ethernet network operates on the same principles as those describe above however, the terminology is slightly different. A Master device is referred to as a Client while a Slave device is referred to as a Server. A way to remember this is that a server "serves" the client.
+    There are two main types of devices in a Modbus network, the Master and Slave\cite{frenzel2015handbook}. The Master can request data from a slave but not vice versa. A Master cannot request data from another master and a slave cannot request data another slave. Some devices like \acrshort{plc}s can be Mater/Slaves allowing inter \acrshort{plc} communication and a tiered hierarchy of control. E.g., the \acrshort{hmi} on the lolly machine controls the \acrshort{plc} and the \acrshort{plc} controls the remote \acrshort{io}. Modbus on an Ethernet network operates on the same principles as those describe above, however, the terminology is slightly different. A Master device is referred to as a Client while a Slave device is referred to as a Server. A way to remember this is that a server "serves" the client.
     
     In a Modbus network, data is communicated between devices in single bits or in WORDs (2 BYTES). 
-    The Modbus protocol has four different address types, these are as follows:
+    The Modbus protocol has four different address types, as follows:
     
         \begin{table}[H]
         \caption{Modbus Address Types}

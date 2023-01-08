@@ -1,0 +1,62 @@
+\begin{center}
+    \begin{longtable}[c]{ |c|c|c|c|c|c| }
+        \caption{I/O list}\\
+        \hline
+        \textbf{IO}	&	\textbf{Adddress}	&	\textbf{Type}	&	\textbf{Desc.}	&	\textbf{Location} & \textbf{Connected Device}\\
+        S41	&	C201	&	Input - WET	&	Auto Switch	&	Candy Drop	&	DAQ-01:DI 00\\
+        S42	&	C202	&	Input - WET	&	Auto Switch	&	Candy Drop	&	DAQ-01:DI 01\\
+        S51	&	C203	&	Input - WET	&	Auto Switch	&	Accept Candy	&	DAQ-01:DI 0\\
+        S52	&	C204	&	Input - WET	&	Auto Switch	&	Accept Candy	&	DAQ-01:DI 0\\
+        S01	&	C205	&	Input - WET	&	Auto Switch	&	Reject Candy	&	DAQ-01:DI 0\\
+        S02	&	C206	&	Input - WET	&	Auto Switch	&	Reject Candy	&	DAQ-01:DI 0\\
+        S61	&	C207	&	Input - WET	&	Auto Switch	&	Colour 1	&	DAQ-01:DI 06\\
+        S62	&	C208	&	Input - WET	&	Auto Switch	&	Colour 1	&	DAQ-01:DI 07\\
+        S71	&	C209	&	Input - WET	&	Auto Switch	&	Colour 2	&	DAQ-01:DI 08\\
+        S72	&	C210	&	Input - WET	&	Auto Switch	&	Colour 2	&	DAQ-01:DI 09\\
+        S11	&	C211	&	Input - WET	&	Auto Switch	&	Top Paddle	&	DAQ-01:DI 10\\
+        S12	&	C212	&	Input - WET	&	Auto Switch	&	Top Paddle	&	DAQ-01:DI 11\\
+        S21	&	C213	&	Input - WET	&	Auto Switch	&	Right Paddle	&	DAQ-01:DI 1\\
+        S22	&	C214	&	Input - WET	&	Auto Switch	&	Right Paddle	&	DAQ-01:DI 1\\
+        S31	&	C215	&	Input - WET	&	Auto Switch	&	Left Paddle	&	DAQ-01:DI 14\\
+        S32	&	C216	&	Input - WET	&	Auto Switch	&	Left Paddle	&	DAQ-01:DI 15\\
+        S81	&	C217	&	Input - WET	&	Auto Switch	&	Colour 3	&	DAQ-02:DI 0\\
+        S82	&	C218	&	Input - WET	&	Auto Switch	&	Colour 3	&	DAQ-02:DI 1\\
+        S91	&	C219	&	Input - WET	&	Auto Switch	&	Colour 4	&	DAQ-02:DI 2\\
+        S92	&	C220	&	Input - WET	&	Auto Switch	&	Colour 4	&	DAQ-02:DI 3\\
+        P1	&	C221	&	Input - WET	&	Prox. Sens.	&	Colour Shoot	&	DAQ-02:DI 4\\
+        P2	&	C222	&	Input - WET	&	Prox. Sens.	&	Reject Bucket	&	DAQ-02:DI 5\\
+        V0	&	C225	&	Output - SINK	&	Valve - Rot.	&	Reject Candy	&	DAQ-02: DO 0\\
+        V1	&	C226	&	Output - SINK	&	Valve - Rot.	&	Top Paddle	&	DAQ-02: DO 1\\
+        V2	&	C227	&	Output - SINK	&	Valve - Rot.	&	Right Paddle	&	DAQ-02: DO 2\\
+        V3	&	C228	&	Output - SINK	&	Valve - Rot.	&	Left Paddle	&	DAQ-02: DO 3\\
+        V4	&	C229	&	Output - SINK	&	Valve - Lin.	&	Candy Drop	&	DAQ-02: DO 4\\
+        V5	&	C230	&	Output - SINK	&	Valve Lin.	&	Accept Candy	&	DAQ-02: DO 5\\
+        V6	&	C231	&	Output - SINK	&	Valve - Rot.	&	Colour 4	&	DAQ-02: DO 6\\
+        C1	&	C232	&	Input - WET	&	Colour 1	&	Colour Sensor CS1	&	DAQ-03: DI 0\\
+        C2	&	C233	&	Input - WET	&	Colour 2	&	Colour Sensor CS3	&	DAQ-03: DI 1\\
+        C3	&	C234	&	Input - WET	&	Colour 3	&	Colour Sensor CS3	&	DAQ-03: DI 2\\
+        C4	&	C235	&	Input - WET	&	Colour 4	&	Colour Sensor CS3	&	DAQ-03: DI 3\\
+        C1-BUT	&	C236	&	Input - WET	&	C1 Button	&	Front Panel	&	DAQ-03: DI 4\\
+        C2-BUT	&	C237	&	Input - WET	&	C2 Button	&	Front Panel	&	DAQ-03: DI 5\\
+        C3-BUT	&	C238	&	Input - WET	&	C3 Button	&	Front Panel	&	DAQ-03: DI 6\\
+        C4-BUT	&	C239	&	Input - WET	&	C45 Button	&	Front Panel	&	DAQ-03: DI 7\\
+        V7	&	C240	&	Output - SINK	&	Valve - Rot.	&	Colour Paddle 3	&	DAQ-03 DO 0\\
+        V8	&	C241	&	Output - SINK	&	Valve - Rot.	&	Colour Paddle 2	&	DAQ-03 DO 1\\
+        V9	&	C242	&	Output - SINK	&	Valve - Rot.	&	Colour Paddle 1	&	DAQ-03 DO 2\\
+        V10	&	C243	&	Output - SINK	&	Valve - Lin.	&	Dispense Candy	&	DAQ-03 DO 3\\
+        V11	&	C244	&	Output - SINK	&	Pneumatic Line	&	Reject Shoot	&	DAQ-03 DO 4\\
+        V12	&	C245	&	Output - SINK	&	Shoot Unblocker	&	Colour Detection Shoot	& DAQ-03 DO 5\\
+        ESTOP	&	X1	&	Input - WET	&	E Stop Button	&	Side Panel	&	PLC-01:X1\\
+        GET-BUT	&	X2	&	Input - WET	&	Get Button	&	Front Panel	&	PLC-01:X2\\
+        RED-LED	&	Y1	&	Output - SINK	&	Red LED	&	Mid Panel	&	PLC-01:Y1\\
+        AMBER-LED	&	Y2	&	Output - SINK	&	Amber LED	&	Mid Panel	&	PLC-01:Y2\\
+        GREEN-LED	&	Y3	&	Output - SINK	&	Green LED	&	Mid Panel	&	PLC-01:Y3\\
+        C1-LED	&	Y101	&	Output - SINK	&	Colour 1 LED	&	Front Panel	&	PLC-S1:1\\
+        C2-LED	&	Y102	&	Output - SINK	&	Colour 2 LED	&	Front Panel	&	PLC:S1:2\\
+        C3-LED	&	Y103	&	Output - SINK	&	Colour 3 LED	&	Front Panel	&	PLC:S1:3\\
+        C4-LED	&	Y104	&	Output - SINK	&	Colour 4 LED	&	Front Panel	&	PLC:S1:4\\
+        GET-LED	&	Y105	&	Output - SINK	&	GET LED	&	Front Panel	&	PLC-S1:5\\
+        \hline
+    \end{longtable}
+\end{center}
+\label{table:ioList}
