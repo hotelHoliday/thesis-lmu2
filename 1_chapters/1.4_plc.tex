@@ -1,6 +1,6 @@
 Programming the \acrshort{plc} was one of the largest tasks undertaken during the \acrshort{lmu} project. This task is multifaceted and includes design and implementation and is refereed to as ``Machine Program Development". This chapter discusses how the \acrshort{plc} has been programmed.
 
-``CLICK Programming Software'' was used to program the \acrshort{plc}. The software is relatively basic in comparison to others that are currently available on the market. The simplistic nature of the software is great from a learning perspective as the limited functionality allows new \acrshort{plc} programmers to become quickly acquainted with the software. The limited functionality also has it's downsides, the main one for this project being an inability to build custom functions, custom functions are useful when programming repetitive logic and would have been particularly helpful while programming some alarming logic - this will be discussed in section \ref{sec:replacePlc}. ``CLICK Programming Software'' is accessible for free through the following link - \href{https://www.automationdirect.com/clickplcs/free-software/free-click-software}{CLICK Software} \cite{clickSoftwareDownload}.
+``CLICK Programming Software'' was used to program the \acrshort{plc}. The software is relatively basic in comparison to others that are currently available on the market. The simplistic nature of the software is great from a learning perspective, as the limited functionality allows new \acrshort{plc} programmers to become quickly acquainted with the software. The limited functionality also has it's downsides, the main one for this project being an inability to build custom functions, custom functions are useful when programming repetitive logic and would have been particularly helpful while programming some alarming logic - this will be discussed in section \ref{sec:replacePlc}. ``CLICK Programming Software'' is accessible for free through the following link - \href{https://www.automationdirect.com/clickplcs/free-software/free-click-software}{CLICK Software} \cite{clickSoftwareDownload}.
 
 
 \section{I/O}
@@ -140,13 +140,13 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
             When an alarm is present, the machine will go into alarm mode. While in Alarm mode, the machine will be inoperable and outputs will go back to their default position. When the machine is in alarm mode, the red \acrshort{led} status indicator will be on.
 
     \subsection{Dispensing}
-        Dispensing is a function of the lolly machine which is possible when the machine is enabled in automatic mode. While in this mode, the machine is constantly waiting for an input from the user to so that it knows which colour/s of lolly to dispense. Once the user has finished selecting the their desired colours, the user presses the get button and the machine will dispense the lollies. This function has been coded using general ladder logic programming principles and can be found in Appendix \ref{app:plcProg}.
+        Dispensing is a function of the lolly machine which is possible when the machine is enabled in automatic mode. While in this mode, the machine is constantly waiting for an input from the user which dictates what colour/s of lolly to dispense. Once the user has selected what colour lollies they want, they presses the get button and the machine will dispense the lollies. This function has been coded using general ladder logic programming principles and can be found in Appendix \ref{app:plcProg}. State machine design was considered but not implemented to to the simplicity of this function. 
         
     \subsection{Sort}
         The sorting subroutine is the most complex piece of code within the controller and has been written exclusively in state machine. The basic process flow is as follows. 
 
         \begin{enumerate}
-            \item A lolly is transferred form the primary hopper into the colour detection shoot.
+            \item A lolly is transferred from the primary hopper into the colour detection shoot.
             \item The lolly colour will be detected and the colour paddles will move into position.
             \item The lolly will drop into the secondary hopper associated with the detected colour.
             \item Repeat.

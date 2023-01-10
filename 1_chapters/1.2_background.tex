@@ -154,7 +154,7 @@ The lolly machine is comprised of many different components from pneumatic actua
         \end{figure}       
 
     \subsubsection{Buttons}
-    Physical push buttons provide an interface between the operator and the machine where different buttons are linked to different machine functions. For example, an \acrfull{estop}, when pressed, will halt the operation of the machine and put it into error mode. While in error mode, the machine will cease to operate until it has been an given instruction by the user that it is safe to do so. The \acrshort{estop} is a \acrshort{nc} contact while the rest of the buttons on the machine are \acrshort{no}.
+    Physical push buttons provide an interface between the operator and the machine where different buttons are linked to different machine functions. For example, an \acrfull{estop}, when pressed, will halt the operation of the machine and put it into error mode. While in error mode, the machine will cease to operate until the faults have been cleared and acknowledged. The \acrshort{estop} is a \acrshort{nc} contact while the rest of the buttons on the machine are \acrshort{no}.
     %Find a figure of a NO button - can probably find in the PLC book
     
 \subsection{Outputs}
@@ -169,7 +169,7 @@ The lolly machine is comprised of many different components from pneumatic actua
         \end{figure} 
     
     \subsubsection{\acrshort{led} Indicators}
-        A number of \acrshort{led} based lights are used on the lolly machine. The \acrshort{led}s are linked to specific machine states and will either be on, off  or flashing. \acrshort{led}s are robust, lasting much longer than previously used incandescent lights. As most \acrshort{led}s require only a couple of volts, all have internal series resistors which allows all \acrshort{led}s on the lolly machine to be directly controlled and switched by the \acrshort{plc}.
+        A number of \acrshort{led} based lights are used on the lolly machine. The \acrshort{led}s are linked to specific machine states and will either be on, off, or flashing. \acrshort{led}s are robust, lasting much longer than previously used incandescent lights. As most \acrshort{led}s require only a couple of volts, all have internal series resistors which allows all \acrshort{led}s on the lolly machine to be directly controlled and switched by the \acrshort{plc} and remote \acrshort{io} modules.
         
         \begin{figure}[H]
             \centering
@@ -183,7 +183,8 @@ The lolly machine is comprised of many different components from pneumatic actua
 The lolly machine is, in essence, an automatic machine. This section investigates various components that facilitate the automation aspects of the project.
 
 \section{State Machine Design}
-    State machine design, sometimes refereed to as sequential machine design, is a systematic method of programming which is commonly used to structure and machine code. Different variations of state machine design exist within industry and sometimes they can be difficult to identify, making the code look unnecessarily complicated and confusing to read. State machine design is comprised of different states with transitions between states. Actions within each state define how the machine will behave in said state while transitions between states are the conditions than need to exist to allow the machine to transition from one state to another. Figure \ref{fig:stateMachineEx} shows the general concept of state machine design. State machine design can be written in arguably any language. Some languages, like GRAPH by Siemens, are based on the concept of state machine design as evident by the look and feel of the language\cite{siemensGraph}. 
+    State machine design, sometimes refereed to as sequential machine design, is a systematic method of programming which is commonly used to structure and machine code. Different variations of state machine design exist within industry and sometimes they can be difficult to identify, making the code look unnecessarily complicated and confusing to read. State machine design is comprised of different states with transitions between states. Actions within each state define how the machine will behave while transitions between states are the conditions than need to exist to allow the machine to transition from one state to another. Figure \ref{fig:stateMachineEx} shows the general concept of state machine design. 
+    Some languages, like GRAPH by Siemens, are based on the concept of state machine design as evident by the look and feel of the language\cite{siemensGraph}. 
 
 
         \begin{figure}[H]
@@ -239,7 +240,7 @@ The lolly machine is, in essence, an automatic machine. This section investigate
     \end{figure}    
     
 \section{Engineering Workstation}
-    An engineering workstation is a \acrshort{pc} that has been set up for a engineer. The engineering workstation is connected to the \acrshort{ot} network and setup with all relevant software specific to the controlled process. In the case of the lolly machine the engineering workstation is a desktop computer that has all of the necessary  software to connect, configure and program all system hardware. 
+    An engineering workstation is a \acrshort{pc} that has been set up for an engineer. The engineering workstation is connected to the \acrshort{ot} network and setup with all relevant software specific to the controlled process. In the case of the lolly machine the engineering workstation is a desktop computer that has all of the necessary  software to connect, configure and program all system hardware. 
 \section{Microcontrollers}
     To understand what a microcontroller is, a few definitions must be made \cite{crisp2003introduction}.
     
@@ -305,7 +306,7 @@ The lolly machine is, in essence, an automatic machine. This section investigate
         \end{figure}         
 
 \subsection{Serial}
-    Serial communication is a method of data transfer between devices where data is transmitted and received one "bit" at a time \cite{frenzel2015handbook}. Communication is typically facilitated through copper wires where data is represented by electrical signals. Serial communication standards define the specifics as to exactly how the data is transferred and interpreted. Below are some basic descriptions of a few common terms used within serial communication.
+    Serial communication is a method of data transfer between devices where data is transmitted and received one `bit' at a time \cite{frenzel2015handbook}. Communication is typically facilitated through copper wires where data is represented by electrical signals. Serial communication standards define the specifics as to exactly how the data is transferred and interpreted. Below are some basic descriptions of a few common terms used within serial communication.
     
     \begin{description}
     
@@ -368,7 +369,7 @@ The lolly machine is, in essence, an automatic machine. This section investigate
 \subsection{Modbus}
     Modbus is an open-source \footnote{Open-source means that the developers have made the protocol available to the public. This allows third parties to use the protocol in their own products.} communication protocol that was produced by Modicon \cite{frenzel2015handbook}. Modbus was originally used exclusively in serial networks (RS-232 and RS-485) but has now expanded to TCP/IP which runs over an Ethernet network\cite{frenzel2015handbook}. 
     
-    There are two main types of devices in a Modbus network, the Master and Slave\cite{frenzel2015handbook}. The Master can request data from a slave but not vice versa. A Master cannot request data from another master and a slave cannot request data another slave. Some devices like \acrshort{plc}s can be Mater/Slaves allowing inter \acrshort{plc} communication and a tiered hierarchy of control. E.g., the \acrshort{hmi} on the lolly machine controls the \acrshort{plc} and the \acrshort{plc} controls the remote \acrshort{io}. Modbus on an Ethernet network operates on the same principles as those describe above, however, the terminology is slightly different. A Master device is referred to as a Client while a Slave device is referred to as a Server. A way to remember this is that a server "serves" the client.
+    There are two main types of devices in a Modbus network, the Master and Slave\cite{frenzel2015handbook}. The Master can request data from a slave but not vice versa. A Master cannot request data from another master and a slave cannot request data from another slave. Some devices like \acrshort{plc}s can be Mater/Slaves allowing inter \acrshort{plc} communication and a tiered hierarchy of control. E.g., the \acrshort{hmi} on the lolly machine controls the \acrshort{plc} and the \acrshort{plc} controls the remote \acrshort{io}. Modbus on an Ethernet network operates on the same principles as those describe above, however, the terminology is slightly different. A Master device is referred to as a Client while a Slave device is referred to as a Server. A way to remember this is that a server "serves" the client.
     
     In a Modbus network, data is communicated between devices in single bits or in WORDs (2 BYTES). 
     The Modbus protocol has four different address types, as follows:

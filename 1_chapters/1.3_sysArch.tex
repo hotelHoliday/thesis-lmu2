@@ -4,7 +4,7 @@
     Various considerations were made during the design stage of the project to ensure the overall architecture was fit for purpose. These overarching considerations concerned hardware selection,  network types and communication methodology.
 
     \subsection{Budget}
-        Budget was one of the main factors in designing the overall structure of the system. Having a limiting amount of funds meant that relatively low grade hardware was selected. This said, the hardware selected was sufficient enough for it’s intended purpose.
+        Budget was one of the main factors in designing the overall structure of the system. Having a limited amount of funds meant that relatively low grade hardware was selected. This said, the hardware selected was sufficient enough for it’s intended purpose.
 
     \subsection{Simplicity}
         One of the main considerations was to make the system architecture as simple as possible. When system architecture is unnecessarily complicated it means that it is more difficult to setup, understand and troubleshoot - all of which are not desirable. However, when multiple networks, gateways, firewalls, etc, are required, there is no escaping a somewhat complex structure. Fortunately, the nature of this project has allowed for a relatively simple architecture with a relatively minimal amount of technologies in play.
@@ -30,7 +30,7 @@
     \subsection{Click PLC}
         A Click \acrshort{plc} from Direct Automation was selected as the main processor for the \acrshort{lmu}. The reasons that the Click \acrshort{plc} was selected are: it's already used on campus, electrical technicians are already familiar with it and it supports Modbus TCP/IP. The \acrshort{plc} has a limited amount of onboard \acrshort{io}. Onboard \acrshort{io} has been used for functions that have been deemed critical. These include an \acrshort{estop} button and three \acrshort{led}s that provide indication of the machine status and health.
     
-        Another factor that hindered the selection of hardware was the long lead time of items. In an ideal world, \acrshort{plc} \acrshort{io} expansion modules would have been purchased and implemented. This would have removed the necessity of using remote \acrshort{io} - which is less reliable from a communication perspective and requires extra configuration in comparison \acrshort{plc} \acrshort{io} expansion modules. The supplier was called and lead times for \acrshort{plc} \acrshort{io} expansion modules were beyond they due date for this thesis - for this reason other options needed to be considered.
+        Another factor that hindered the selection of hardware was the long lead time of items. In an ideal world, \acrshort{plc} \acrshort{io} expansion modules would have been purchased and implemented. This would have removed the necessity of using remote \acrshort{io} - which is less reliable from a communication perspective and requires extra configuration in comparison \acrshort{plc} \acrshort{io} expansion modules. The supplier was called and lead times for \acrshort{plc} \acrshort{io} expansion modules were beyond the due date for this thesis - for this reason other options needed to be considered.
     
         \begin{figure}[H]
             \centering
@@ -106,7 +106,7 @@
     This section will discuss the type of networks that have been implemented on the \acrshort{lmu}. Various networks have been utilised trough the \acrshort{lmu} with Ethernet being used most extensively.
     
     \subsection{Ethernet} 
-    The main backbone of all communications relies on an Ethernet network on the subnet: 192.168.1.n with a subnet mask of 255.255.255.0. Ethernet was selected as it an incredibly common communication medium that is used extensively throughout industry and also on campus. Physically, all devices are connected via an unmanaged network switch which is installed within the back of the Lolly Machine alongside the rest of the control gear. Pink Ethernet cables have been used to connect each device to one another for no other reason beyond pink being an awesome colour.
+    The main backbone of all communications relies on an Ethernet network on the subnet: 192.168.1.n with a subnet mask of 255.255.255.0. Ethernet was selected as it's an incredibly common communication medium that is used extensively throughout industry and as well as on campus. Physically, all devices are connected via an unmanaged network switch which is installed within the back of the Lolly Machine alongside the rest of the control gear. Pink Ethernet cables have been used to connect each device to one another for no other reason beyond pink being an awesome colour.
     
     \acrshort{ip} addresses are shown in Table \ref{table:networkDevices}.	
 
@@ -171,11 +171,11 @@
 
         \subsection{Tier 1 - Client Devices}
 
-        Tier 1 contains the Client devices. The main function of the client devices is to give instructions to the Server part of the \acrshort{plc}. The two main types of instructions to the \acrshort{plc} Server can be either read or write. A read instruction from a Client to a Server is a request for information. For example, an indicator on the Siemens \acrshort{hmi} that shows the status of a digital input, is “read” request from the \acrshort{hmi} to the \acrshort{plc}. When a Client writes to a server, in the case of the lolly machine, it is altering a value of an internal variable within the \acrshort{plc}. For example, In manual mode a request to turn on and off a digital output can be triggered by the \acrshort{hmi}.
+        Tier 1 contains the Client devices. The main function of the client devices is to give instructions to the Server part of the \acrshort{plc}. The two main types of instructions to the \acrshort{plc} Server can be either read or write. A read instruction from a Client to a Server is a request for information. For example, an indicator on the Siemens \acrshort{hmi} that shows the status of a digital input, is “read” request from the \acrshort{hmi} to the \acrshort{plc}. When a Client writes to a server, in the case of the lolly machine, it is altering a value of an internal variable within the \acrshort{plc}. For example, in manual mode, a request to change the state of a digital output from the \acrshort{plc} can be triggered by the \acrshort{hmi}.
 
         There are three different devices that act as Clients to the \acrshort{plc}. These are the: Siemens \acrshort{hmi}, Raspberry Pi (Node-RED) and the \acrshort{ews}(LabVIEW). The intention is that the Siemens \acrshort{hmi} will serve as the main control point, the \acrshort{ews} as a troubleshooting tool and the Raspberry Pi added as more of a novelty. The logic within the \acrshort{plc} responsible for mapping instructions from each of the Client devices will be discussed in Chapter \ref{chap:plc}.
 
-        One other device that should get an honorary mention in this section is the optional device of a  phone/ tablet connected the Raspberry Pi \acrshort{wap}. Technically, the Raspberry Pi is a Client-Server device as it receives instruction from the connected phone/ tablet then proceeds to pass these commands onto the \acrshort{plc}. The reason that both devices have been left in tier 1 is because the Raspberry Pi doesn't perform any logic. For the remainder of this document, the combination of both the devices will be referred to as the “Raspberry Pi”.
+        One other device that should get an honorary mention in this section is the optional device of a  phone/ tablet connected to the Raspberry Pi \acrshort{wap}. Technically, the Raspberry Pi is a Client-Server device as it receives instruction from the connected phone/ tablet then proceeds to pass these commands onto the \acrshort{plc}. The reason that both devices have been left in tier 1 is because the Raspberry Pi doesn't perform any logic. For the remainder of this document, the combination of both the devices will be referred to as the `Raspberry Pi' or `Node-RED'.
 
         \subsection{Tier 2 - Client-Server Devices}
 
