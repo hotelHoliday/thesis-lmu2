@@ -49,7 +49,7 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
         Modbus \acrshort{io}, as the name suggests, are \acrshort{io} that are mapped to and from Modbus devices. As the \acrshort{plc} is a Client-Server device, there are two methods that must be discussed in regards to Modbus \acrshort{io} communication.
 
         \subsubsection{Server}
-            The Modbus Server part of the \acrshort{plc} is accessible by Modbus Client devices. In the case of this project, these are the various control sources (\acrshort{hmi}s). Every variable within the \acrshort{plc} has an equivalent Modbus address which can be found within the `Address Picker' on the `Home' tab as illustrated by Figure \ref{fig:modbusAdd}. Next to the Modbus Addresses, are the function codes (see Table \ref{table:modbusFunctions}) that can be used to access the variable. There is no additional configuration that needs to be done to setup the the \acrshort{plc} as a Modbus Server device. 
+            The Modbus Server part of the \acrshort{plc} is accessible by Modbus Client devices. In the case of this project, these are the various control sources (\acrshort{hmi}s). Every variable within the \acrshort{plc} has an equivalent Modbus address which can be found within the `Address Picker' on the `Home' tab as illustrated by Figure \ref{fig:modbusAdd}. Next to the Modbus Addresses, are the function codes (see Table \ref{table:modbusFunctions}) that can be used to access the variable. There is no additional configuration that needs to be done to setup the \acrshort{plc} as a Modbus Server device. 
             
         \begin{figure}[H]
             \centering
@@ -73,7 +73,7 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
         \end{figure}
             
     \subsection{Input Mapping} \label{sec:input}
-        Input mapping is almost exclusively concerned with virtual inputs from \acrshort{hmi} devices and can be found within the input subroutine program. The purpose of this portion of code is to define some logic that dictates which control source the \acrshort{plc} is taking instructions from. Figure \ref{fig:inputMapping}, for example, shows the three variables linked to each control source for the auto enable enable command - C1.
+        Input mapping is almost exclusively concerned with virtual inputs from \acrshort{hmi} devices and can be found within the input subroutine program. The purpose of this portion of code is to define some logic that dictates which control source the \acrshort{plc} is taking instructions from. Figure \ref{fig:inputMapping}, for example, shows the three variables linked to each control source for the auto enable command - C1.
         \begin{description}
             \item C301 - Siemens \acrshort{hmi}
             \item C341 - LabVIEW application on \acrshort{ews} 
@@ -119,7 +119,7 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
     The main program is also responsible for calling six other Subroutines Programs. This is achieved by connecting   ``\_Always\_ON'' \acrshort{no} contacts with each subroutine program.
     
     \subsection{Main Modes}
-    A simplified version of state machine has been implemented for the structure the main program. A graphical representation of the program can be seen in Figure \ref{fig:mainStateMachine}. The machine will swap between manual and automatic mode as a function of the internal \acrshort{plc} variable C3. When an an alarm becomes active, the system will go into `Alarm Mode' regardless of whether the machine is in manual or automatic. 
+    A simplified version of state machine has been implemented for the structure the main program. A graphical representation of the program can be seen in Figure \ref{fig:mainStateMachine}. The machine will swap between manual and automatic mode as a function of the internal \acrshort{plc} variable C3. When an alarm becomes active, the system will go into `Alarm Mode' regardless of whether the machine is in manual or automatic. 
     
         \begin{figure}[H]
             \centering
@@ -146,9 +146,9 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
         The sorting subroutine is the most complex piece of code within the controller and has been written exclusively in state machine. The basic process flow is as follows. 
 
         \begin{enumerate}
-            \item A lolly is transferred form the the primary hopper into the colour detection shoot.
+            \item A lolly is transferred form the primary hopper into the colour detection shoot.
             \item The lolly colour will be detected and the colour paddles will move into position.
-            \item The lolly will drop into the the secondary hopper associated with the detected colour.
+            \item The lolly will drop into the secondary hopper associated with the detected colour.
             \item Repeat.
         \end{enumerate}
 
@@ -218,7 +218,7 @@ Programming the \acrshort{plc} was one of the largest tasks undertaken during th
         This function is capable of working in both automatic and manual mode.   
         
     \subsection{Strip LED on Front Surround} \label{sec:stripLed}
-        An \acrshort{rgb} \acrshort{led} strip that surrounds the front of of the machine has been programmed to change colour whenever a lolly is dropped into the colour detection shoot. The \acrshort{rgb} colour matches that of the lolly. This is achieved through the use of an Arduino microcontroller and the RS-485 communication port of the \acrshort{plc}. When a new colour is detected, an RS485 signal is transmitted from the \acrshort{plc} and received by the Arduino. The Arduino then controls the \acrshort{led} strip through a communication protocol called \acrshort{spi} \footnote{For more information about \acrshort{spi} click this \href{https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all}{link.} \cite{spi}}. Appendix \ref{app:arduino} contains the code within the Arduino.
+        An \acrshort{rgb} \acrshort{led} strip that surrounds the front of the machine has been programmed to change colour whenever a lolly is dropped into the colour detection shoot. The \acrshort{rgb} colour matches that of the lolly. This is achieved through the use of an Arduino microcontroller and the RS-485 communication port of the \acrshort{plc}. When a new colour is detected, an RS485 signal is transmitted from the \acrshort{plc} and received by the Arduino. The Arduino then controls the \acrshort{led} strip through a communication protocol called \acrshort{spi} \footnote{For more information about \acrshort{spi} click this \href{https://learn.sparkfun.com/tutorials/serial-peripheral-interface-spi/all}{link.} \cite{spi}}. Appendix \ref{app:arduino} contains the code within the Arduino.
 
         \begin{figure}[H]
             \centering

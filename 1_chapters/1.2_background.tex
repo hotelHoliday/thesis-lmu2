@@ -52,7 +52,7 @@ The lolly machine is comprised of many different components from pneumatic actua
     \end{minipage}\hfill            
     \end{figure}      
 
-    All actuators on the lolly machine are driven by 5/2 control valves, this means that each valve has two positions and 5 ports. Figure \ref{fig:5_2Valve} shows a 5/2 pneumatic valve symbol. Valve positions are shown by two square boxes (coloured red and green to clearly illustrate the different positions) each containing two arrows and a T. The arrows show the air flow direction between ports while the T represents a plug. The zigzag on the right hand side of the symbol illustrates a spring, indicating the the control valve is spring return. The rectangle with the diagonal line through the middle shows that a solenoid drives the control action. Figure \ref{fig:cylinderAB} shows the two possible positions of the cylinder.
+    All actuators on the lolly machine are driven by 5/2 control valves, this means that each valve has two positions and 5 ports. Figure \ref{fig:5_2Valve} shows a 5/2 pneumatic valve symbol. Valve positions are shown by two square boxes (coloured red and green to clearly illustrate the different positions) each containing two arrows and a T. The arrows show the air flow direction between ports while the T represents a plug. The zigzag on the right hand side of the symbol illustrates a spring, indicating the control valve is spring return. The rectangle with the diagonal line through the middle shows that a solenoid drives the control action. Figure \ref{fig:cylinderAB} shows the two possible positions of the cylinder.
 
     \begin{figure}[H]
     \centering
@@ -88,7 +88,7 @@ The lolly machine is comprised of many different components from pneumatic actua
         \item Solenoid
     \end{itemize}
     
-    All control valves on the lolly machine are are triggered via solenoid driven pilot valves.
+    All control valves on the lolly machine are triggered via solenoid driven pilot valves.
 
 \section{I/O}
     
@@ -178,7 +178,7 @@ The lolly machine is comprised of many different components from pneumatic actua
             \label{fig:leds}
         \end{figure} 
         
-%There are two main streams of process control - continuous and sequential\cite{dunn2006introduction}. Continuous control involves the constant monitoring and manipulation of dynamic systems while while sequential control is event based. Given the nature of the lolly machine, sequential control is the obvious choice for controlling the system \cite{dunn2006introduction}.
+%There are two main streams of process control - continuous and sequential\cite{dunn2006introduction}. Continuous control involves the constant monitoring and manipulation of dynamic systems while sequential control is event based. Given the nature of the lolly machine, sequential control is the obvious choice for controlling the system \cite{dunn2006introduction}.
 
 The lolly machine is, in essence, an automatic machine. This section investigates various components that facilitate the automation aspects of the project.
 
@@ -321,7 +321,7 @@ The lolly machine is, in essence, an automatic machine. This section investigate
     
     \subsubsection{RS-232}
     RS-232 has been around for a long time and is one of the older methods of serial communication. Although there are many superior methods of communication in this modern era, RS-232 is still common among industry. 
-    RS-232 is supported by the Click \acrshort{plc}. During normal operation, the \acrshort{plc} communicates to all system peripherals through an Ethernet protocol and does not require RS-232. Unfortunately, the \acrshort{plc} factory settings do not include a static \acrshort{ip}\footnote{An \acrshort{ip} address is a unique address required for the type of communication network (router-less Ethernet) that that has been implemented on the lolly machine} address.  RS-232 is used exclusively for setting the \acrshort{ip} address of the \acrshort{plc}. Figure \ref{fig:rs232Trans} shows a typical RS-232 data transmission. 
+    RS-232 is supported by the Click \acrshort{plc}. During normal operation, the \acrshort{plc} communicates to all system peripherals through an Ethernet protocol and does not require RS-232. Unfortunately, the \acrshort{plc} factory settings do not include a static \acrshort{ip}\footnote{An \acrshort{ip} address is a unique address required for the type of communication network (router-less Ethernet) that has been implemented on the lolly machine} address.  RS-232 is used exclusively for setting the \acrshort{ip} address of the \acrshort{plc}. Figure \ref{fig:rs232Trans} shows a typical RS-232 data transmission. 
 
     \begin{figure}[H]
         \centering

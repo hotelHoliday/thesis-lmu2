@@ -241,7 +241,7 @@ Three \acrshort{hmi}s have been configured and programmed as control sources for
             Extra detail on using Modbus with Node-RED can be found online on this \href{https://stevesnoderedguide.com/node-red-modbus}{link} \cite{modbusNodeRed}.
             
         \subsubsection{Watch Dog Timer}
-            A watchdog timer has been implemented using the UNIX type timestamp node. A function has been written that passes the timestamp data so that only the seconds are being sent to the Modbus Function (Listing \ref{fig:nodeRedWatchDogFlow}). This flow is illustrated in Figure \ref{fig:nodeRedDog}
+            A watchdog timer has been implemented using the UNIX type timestamp node. A function has been written that passes the timestamp data so that only the seconds are being sent to the Modbus Function (Listing \ref{fig:nodeRedWatchDogFlow}). This flow is illustrated in Figure \ref{fig:nodeRedWatchDogFlow}
 
             \begin{figure}[H]
                     \centering
@@ -274,7 +274,7 @@ Three \acrshort{hmi}s have been configured and programmed as control sources for
             \centering
             \includegraphics[width = 0.85\textwidth]{2_images/nodeRedControl}
             \caption{The Node-RED control dashboard.}
-            \label{fig:nodeRedWatchDogFlow}
+            \label{fig:nodeRedControl}
         \end{figure}  
         
 \section{Physical Push Buttons and LED Indicators}
