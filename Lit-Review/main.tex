@@ -1,0 +1,76 @@
+\documentclass{article}
+
+
+
+\input{0_setup/0_packages}
+\input{0_setup/1_acro}
+\input{0_setup/2_customCmd}
+
+\makeglossaries
+
+\usepackage[backend=biber,style=ieee,sorting=none]{biblatex}
+\addbibresource{bibliography.bib}
+
+\graphicspath{ {2_images/} }
+
+% title page information
+\title  {\begin{center}
+            \includegraphics[scale = 0.2]{murdochLogo} 
+            \vspace{10mm}
+            \\{\Huge The Lolly Machine Upgrade 2}
+            \vspace{10mm}
+            \\{\Huge Literature Review/ Background}
+            \vspace{5mm}
+            \\{\Large ENG470 - Engineering Honours Thesis}
+            \vspace{40mm} 
+            \\ Supervisor: Dr Graeme Cole
+        \end{center}}
+\author{Henry Davies}
+\date{September 2022}
+
+\begin{document}
+
+% title page
+\maketitle
+\newpage
+
+% table of contents page
+\tableofcontents
+\newpage
+
+% list of figures page
+\listoffigures
+\newpage
+
+% acronyms page
+\printglossary[type=\acronymtype]
+\newpage
+
+\section{Introduction}
+    \input{1_sections/1_intro}
+    \newpage
+
+\section{Mechanical}
+    \input{1_sections/2_mechanical}
+    \newpage
+
+\section{I/O Devices}
+    \input{1_sections/3_io}
+    \newpage
+    
+\section{Automatic Machines}
+    \input{1_sections/4_autoMachine}
+    \newpage  
+    
+\section{Communication}
+    \input{1_sections/5_comms}
+    \newpage
+    
+\section{Summary}
+    \input{1_sections/6_summary}
+    \newpage
+    
+\addcontentsline{toc}{section}{References}
+\printbibliography
+
+\end{document}

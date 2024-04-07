@@ -1,0 +1,54 @@
+\begin{ganttchart}[x unit = 0.62cm, y unit chart = 0.5cm  , hgrid, vgrid]{1}{29}
+
+
+   \gantttitle{2022}{25} \gantttitle{2023}{4} \\
+    %define months
+    \gantttitlelist{"Jun"}{1}
+    \gantttitlelist{"Jul","Aug","Sep","Oct","Nov","Dec"}{4}
+    \gantttitlelist{"Jan"}{4}\\
+    %define weeks
+    \gantttitlelist{1,...,29}{1}\\
+    %\gantttitlelist{"W1","W2","W3","W4","W5","W6","W7","W8","W9","W10","W11","W12","W13","W14","W15","W16","W17","W18","W19","W20","W21","W22","W23","W24","W25","W2%6","W27","W28","W29"}{1} \\
+    % submissions
+        \ganttgroup[group/.append style = {fill = gray}]{DOCUMENTATION}{2}{29}\\
+        \ganttbar[bar/.append style={fill = gray}]{Engineering Drawings}{15}{18} \ganttnewline
+        \ganttbar[bar/.append style={fill = gray}]{User Guide}{19}{20} \ganttnewline
+        \ganttbar[bar/.append style={fill = gray}]{Thesis Documents}{2}{3}
+        \ganttbar[bar/.append style={fill = gray}]{}{10}{12}
+        \ganttbar[bar/.append style={fill = gray}]{}{16}{22}
+        \ganttbar[bar/.append style={fill = gray}]{}{23}{23}
+        \ganttbar[bar/.append style={fill = gray}]{}{24}{26}
+        \ganttbar[bar/.append style={fill = gray}]{}{27}{29}
+        \ganttmilestone[inline,milestone/.style={fill=orange, draw = black, shape = star}]{}{3}
+        \ganttmilestone[inline,milestone/.style={fill=red, draw = black, shape = star}]{}{12}
+        \ganttmilestone[inline,milestone/.style={fill=blue, draw = black, shape = star}]{}{22}
+        \ganttmilestone[inline,milestone/.style={fill=green, draw = black, shape = star}]{}{23}
+        \ganttmilestone[inline,milestone/.style={fill=purple, draw = black, shape = star}]{}{26}
+        \ganttmilestone[inline,milestone/.style={fill=black, draw = black, shape = star}]{}{29}\\
+
+    \ganttgroup[group/.append style={fill = pink}]{MECHANICAL}{4}{9}\\
+        \ganttbar[bar/.append style={fill = pink}]{Test Pneumatic Equipment }{4}{4} \ganttnewline
+        \ganttbar[bar/.append style={fill = pink}]{Design Equipment}{5}{5} \ganttnewline
+        \ganttbar[bar/.append style={fill = pink}]{Procure Equipment}{6}{7} \ganttnewline
+        \ganttbar[bar/.append style={fill = pink}]{Install Equipment}{7}{8} \ganttnewline
+        \ganttmilestone[milestone/.style={fill = pink, shape = diamond}]{Mechanical Tasks Complete}{9} \ganttnewline
+
+    \ganttgroup[group/.append style={fill = cyan}]{HARDWARE}{8}{13}\\
+        \ganttbar[bar/.append style={fill = cyan}]{Design Hardware}{8}{8} \ganttnewline
+        \ganttbar[bar/.append style={fill = cyan}]{Procure Hardware}{9}{10} \ganttnewline
+        \ganttbar[bar/.append style={fill = cyan}]{Install Hardware}{10}{12} \ganttnewline
+        \ganttmilestone[milestone/.style={fill = cyan, shape = diamond}]{Hardware Tasks Complete}{13} \ganttnewline
+        
+    \ganttgroup[group/.append style={fill = magenta}]{SOFTWARE}{2}{19} \\
+        \ganttbar[bar/.append style={fill = magenta}]{Learn FORTH}{2}{7} \ganttnewline
+        \ganttlinkedbar[bar/.append style={fill = magenta}]{FORTH Development}{13}{14} \ganttnewline
+        \ganttlinkedbar[bar/.append style={fill = magenta}]{LabVIEW Development}{15}{15} \ganttnewline
+        \ganttlinkedbar[bar/.append style={fill = magenta}]{C++ Development}{16}{17} \ganttnewline
+        \ganttlinkedbar[bar/.append style={fill = magenta}]{Ignition-Maker SCADA}{18}{19} \ganttnewline
+        \ganttmilestone[milestone/.style={fill = magenta, shape = diamond}]{Software Tasks Complete}{19}
+        
+    \ganttlink{elem19}{elem20} 
+    \ganttlink{elem24}{elem25}
+    \ganttlink{elem31}{elem32}
+\end{ganttchart}
+

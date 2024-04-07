@@ -1,0 +1,79 @@
+Project tasks for the LMU2 can be categorised into four different areas: Documentation, Mechanical, Hardware and Software.
+
+Task descriptions detailed in this section correspond directly to the Gantt chart in the following section. Figure \ref{fig:ganttLegned} provides a legend illustrating how each of these categories are represented in the Gantt chart.
+
+%% legend for gantt
+\begin{figure}[ht]
+    \centering
+    
+        \begin{ganttchart}[x unit = 0.61cm, y unit chart = 0.5cm]{1}{2}
+            \gantttitle{\textbf{Legend}}{2}\\
+            \ganttbar[bar/.append style={fill = gray }]{Documentation}{1}{2} \ganttnewline
+            \ganttbar[bar/.append style={fill = pink }]{Mechanical Tasks}{1}{2} \ganttnewline
+            \ganttbar[bar/.append style={fill = cyan}]{Hardware Tasks}{1}{2} \ganttnewline
+            \ganttbar[bar/.append style={fill = magenta}]{Software Tasks}{1}{2} \ganttnewline
+            \ganttmilestone[milestone/.style={fill=orange, draw = black, shape = star}]{Project Plan}{1}\\
+            \ganttmilestone[milestone/.style={fill=red, draw = black, shape = star}]{Literature Review}{1}\\
+            \ganttmilestone[milestone/.style={fill=blue, draw = black, shape = star}]{Thesis to Supervisor}{1}\\
+            \ganttmilestone[milestone/.style={fill=green, draw = black, shape = star}]{Presentation}{1}\\
+            \ganttmilestone[milestone/.style={fill=purple, draw = black, shape = star}]{Thesis to Examiners}{1}\\
+            \ganttmilestone[milestone/.style={fill=black, draw = black, shape = star}]{Revised Thesis}{1}\\
+    \end{ganttchart}
+    \caption{Gantt chart legend.}
+    \label{fig:ganttLegned}
+\end{figure}
+
+\subsection{Documentation}
+    \subsubsection{Engineering Drawings}
+        Three sets of engineering drawings will be developed, these are as follows:
+        \begin{itemize}
+            \item{Block Diagram}
+            \item{Electrical Schematic}
+            \item{P\&ID}
+        \end{itemize}
+        Drawing software will be miro\textsuperscript{TM} for the block diagram and Solidwork's for Electrical Schematic and P\&ID drawing. miro\textsuperscript{TM} is an online whiteboard for visual collaboration and Solidwork's is professional engineering drawing package. 
+    \subsubsection{User Guide}
+        A user guide detailing how to use the machine will be written once the project is complete. The user guide will describe how to use the machine from all three user interfaces. 
+    \subsubsection{Thesis Documentation}
+    Submission dates for thesis documentation is included so that resources can be managed properly throughout the project period. 
+    
+\subsection{Mechanical}
+    \subsubsection{Test Pneumatic Equipment}
+        Pneumatic cylinders will be tested to ensure that they are all working properly. Cylinders are driven from a two pneumatic valve manifold assembles. The pneumatic valves are switched from 6 V DC solenoids. After a brief look, it appears that some solenoids are faulty/ stuck. The pneumatic valve and solenoid come in a package, the part number for re-order is VJ3140Y. Pneumatic lines will always be checked for damage during this phase.
+    \subsubsection{Design Equipment}
+        Parts will need to be designed if mechanical equipment is found to be missing or broken beyond repair and store bought items do not suffice. For Example, a piece of perspex is missing from the front of the machine, if it cannot be found, it will need to be designed and manufactured.
+    \subsubsection{Procure Equipment}
+        This is the time allocation for procurement of store bought and designed mechanical equipment.
+    \subsubsection{Install Equipment}
+        Depending on the nature of installation and time constraints, equipment install may be outsourced to a Murdoch Engineering technician. 
+
+\subsection{Hardware}
+    \subsubsection{Design Hardware}
+        An interface board connecting the Dragon board to the existing peripherals will need to designed. Design will entail cross referencing between the Dragon Board manual, \cite{dragonBoard} and in house lolly machine design documents.
+    \subsubsection{Procure Hardware}
+        The following items will need to be procured:
+        \begin{itemize}
+            \item {Interface Board}
+            \item {esp32}
+            \item {Raspberry-Pi}
+            \item {USB-RS232 Converter}
+            \item {Windows Tablet (subject to budget constrains)}
+        \end{itemize}
+        This is the estimated allocated time for procurement of these devices.
+    \subsubsection{Install Hardware}
+        This is the allocated time to install all hardware. Hardware installation will not be outsourced.
+        %% ADD MORE HERE !!!!!
+        
+\subsection{Software}
+    \subsubsection{Learn FORTH}
+        The FORTH language needs to be learnt prior to any development. The book "Starting FORTH \cite{startingForth}, will be consulted heavily during this stage. A free evaluation version is available through the FORTH website \cite{forthWeb}.
+    \subsubsection{FORTH Development}
+        The existing program for the lolly machine is written in FORTH, fortunately, a SwiftX cross compiler exists for the new embedded system. This allows program development to be forked from the original program. FORTH development lines up with the project aim, Replace Embedded System.
+    \subsubsection{LabVIEW Development}
+         LabVIEW development concerns the programming required for the LabVIEW HMI. The HMI will have an auto and manual mode while showing the current status of the machine and IO.
+    \subsubsection{C++ Development}
+        An esp32-based embedded system will control the lolly machine while the web-based HMI is in operation. The esp32 will act as an interface between the ignition server and the Dragon Board. While being controlled by the web-server the Dragon board acts as a remote IO to the esp32. Figure \ref{fig:webHmiBlock} illustrates the proposed connection method between the ignition server and the Dragon board.
+    \subsubsection{Ignition Maker Development}
+        Ignition Maker Edition is a free web-based SCADA platform developed for hobbyists and students \cite{ignitionMaker}. A gateway server and designer application will be hosted on a Raspberry-Pi or windows tablet. Users will be able to view the web-based HMI on their own personal devices by connecting to the WiFi network hosting the Ignition gateway.
+
+
